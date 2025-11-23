@@ -35,6 +35,7 @@ Ogni cartella contiene un ambiente vulnerabile separato:
 - **A07_Identification_and_Authentication_Failures** - Problemi di autenticazione
 - **A08_Software_Data_Integrity_Failures** - Errori di integrità software e dati (deserializzazione non sicura, verifica integrità mancante)
 - **A09_Security_Logging_Monitoring_Failures** - Errori di logging e monitoraggio (mancanza logging, log manipolabili, nessun alerting)
+- **A10_Server_Side_Request_Forgery** - Server-Side Request Forgery (accesso risorse interne, port scanning, metadata services)
 
 Per avviare un lab, entra nella cartella e esegui:
 
