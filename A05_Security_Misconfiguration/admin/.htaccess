@@ -1,0 +1,10 @@
+# VULNERABILITÀ: File .htaccess mancante o non configurato correttamente!
+# Dovrebbe contenere:
+# - Require all denied (di default)
+# - Require ip 192.168.1.0/24 (solo IP specifici)
+# - Autenticazione HTTP Basic
+# - Redirect a pagina di login
+
+# In questo caso, il file .htaccess non esiste o è vuoto,
+# permettendo accesso pubblico alla directory admin!
+

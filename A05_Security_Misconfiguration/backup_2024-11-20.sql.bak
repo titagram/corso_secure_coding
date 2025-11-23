@@ -1,0 +1,12 @@
+-- VULNERABILITÀ: File di backup con estensione .bak esposto!
+-- Backup precedente del 2024-11-20
+
+-- Questo file dimostra che anche file con estensioni .bak, .old, .tmp
+-- possono essere accessibili se non protetti correttamente
+
+USE document_system;
+
+-- Backup precedente con dati utenti
+-- Password hash esposti!
+-- Email e informazioni personali esposte!
+

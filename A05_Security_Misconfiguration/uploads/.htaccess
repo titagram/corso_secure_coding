@@ -1,0 +1,5 @@
+# VULNERABILITÀ: Directory listing abilitato!
+# Dovrebbe contenere: Options -Indexes per disabilitare directory listing
+Options +Indexes
+IndexOptions FancyIndexing
+

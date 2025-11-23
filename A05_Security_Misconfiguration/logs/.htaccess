@@ -1,0 +1,6 @@
+# VULNERABILITÀ: Directory listing abilitato e accesso pubblico!
+# Dovrebbe contenere: Options -Indexes e Deny from all
+Options +Indexes
+IndexOptions FancyIndexing
+Require all granted
+

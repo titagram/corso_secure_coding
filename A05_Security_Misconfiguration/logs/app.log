@@ -1,0 +1,21 @@
+[2024-11-23 10:00:00] INFO: Application started
+[2024-11-23 10:05:15] INFO: User login successful - username: mario.rossi, IP: 192.168.1.100
+[2024-11-23 10:10:30] INFO: File uploaded - user_id: 2, filename: Contratto_Cliente_ABC.pdf, size: 245678
+[2024-11-23 10:15:45] ERROR: Database connection failed - Host: db, User: root
+[2024-11-23 10:20:00] INFO: Admin access - username: admin, IP: 192.168.1.50, action: delete_document
+[2024-11-23 10:25:12] WARNING: Failed login attempt - username: hacker, IP: 192.168.1.200
+[2024-11-23 10:30:00] INFO: User logout - username: luisa.verdi, IP: 192.168.1.101
+[2024-11-23 10:35:22] ERROR: SQL Error: Table 'document_system.documents' doesn't exist
+[2024-11-23 10:40:00] DEBUG: Session data - user_id: 2, role: user, session_id: abc123def456
+[2024-11-23 10:45:10] INFO: Password reset requested - email: mario.rossi@email.com, token: reset_token_xyz789
+[2024-11-23 10:50:00] ERROR: File access denied - user_id: 3, file_id: 1, reason: insufficient_permissions
+
+# VULNERABILITÀ: File di log esposto pubblicamente!
+# Contiene informazioni sensibili:
+# - Username e azioni degli utenti
+# - IP addresses
+# - Errori con dettagli tecnici
+# - Token di reset password
+# - Session IDs
+# - Dettagli su file e operazioni
+
