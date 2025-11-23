@@ -29,6 +29,7 @@ Ogni cartella contiene un ambiente vulnerabile separato:
 - **A01_Broken_Auth** - Vulnerabilità di autenticazione
 - **A02_Cryptographic_Failures** - Errori crittografici (password deboli, dati in chiaro)
 - **A03_Injection** - SQL Injection e Command Injection
+- **A04_Insecure_Design** - Design insicuro (business logic vulnerabile)
 - **A07_Identification_and_Authentication_Failures** - Problemi di autenticazione
 
 Per avviare un lab, entra nella cartella e esegui:
