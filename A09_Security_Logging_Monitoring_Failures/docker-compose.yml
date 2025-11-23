@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8009:80"
+    volumes:
+      - ./logs:/var/www/html/logs
+      - ./vault:/var/www/html/vault
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=vault_system
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: vault_system
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+

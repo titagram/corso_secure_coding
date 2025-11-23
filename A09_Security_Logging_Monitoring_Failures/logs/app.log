@@ -1,0 +1,4 @@
+[2025-11-23 17:32:30] DEBUG: Login attempt - username: admin, password: password | IP: 172.23.0.1 | User: anonymous
+[2025-11-23 17:32:30] INFO: Login successful - username: admin | IP: 172.23.0.1 | User: admin
+[2025-11-23 17:32:30] INFO: User logged in | IP: 172.23.0.1 | User: admin | Context: {"user_id":1,"role":"admin","session_id":"eaa35d05e0679cd0e0f3aa5f2777f4cb"}
+[2025-11-23 17:33:42] INFO: User logged out | IP: 172.23.0.1 | User: admin
