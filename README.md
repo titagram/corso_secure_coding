@@ -33,6 +33,7 @@ Ogni cartella contiene un ambiente vulnerabile separato:
 - **A05_Security_Misconfiguration** - Configurazioni di sicurezza errate
 - **A06_Vulnerable_Components** - Componenti vulnerabili e obsoleti
 - **A07_Identification_and_Authentication_Failures** - Problemi di autenticazione
+- **A08_Software_Data_Integrity_Failures** - Errori di integrità software e dati (deserializzazione non sicura, verifica integrità mancante)
 
 Per avviare un lab, entra nella cartella e esegui:
 

@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8008:80"
+    volumes:
+      - ./uploads:/var/www/html/uploads
+      - ./plugins:/var/www/html/plugins
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=plugin_system
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: plugin_system
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
