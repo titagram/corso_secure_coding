@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: a03_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: a03_db
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - a03_network
+
+  app:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: a03_php_fpm
+    restart: always
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - a03_network
+
+  webserver:
+    image: httpd:2.4
+    container_name: a03_apache
+    restart: always
+    ports:
+      - "8083:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - app
+      - db
+    networks:
+      - a03_network
+
+networks:
+  a03_network:
+    driver: bridge
