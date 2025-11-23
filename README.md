@@ -27,6 +27,7 @@ Questo laboratorio contiene esercitazioni pratiche su vulnerabilità web comuni 
 Ogni cartella contiene un ambiente vulnerabile separato:
 
 - **A01_Broken_Auth** - Vulnerabilità di autenticazione
+- **A02_Cryptographic_Failures** - Errori crittografici (password deboli, dati in chiaro)
 - **A03_Injection** - SQL Injection e Command Injection
 - **A07_Identification_and_Authentication_Failures** - Problemi di autenticazione
 

@@ -31,7 +31,7 @@ services:
     container_name: a03_apache
     restart: always
     ports:
-      - "8083:80"
+      - "8003:80"
     volumes:
       - ./src:/var/www/html
       - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
