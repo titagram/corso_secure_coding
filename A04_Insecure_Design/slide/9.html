@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Esercizio 5: Overbooking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📊 Esercizio 5: Bypass Controlli di Capacità</h1>
+        <div class="subtitle">Creare overbooking bypassando i vincoli – Quando 4 posti diventano 100</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    Un servizio ha <span class="tech-term">max_capacity = 4</span> (es. "Tavolo Romantico").
+                    Vogliamo prenotare per <strong>10 persone</strong>, oppure creare multiple prenotazioni 
+                    per lo stesso slot causando <strong>overbooking</strong>.
+                    <br><br>
+                    <strong>Perché è possibile?</strong> La validazione è solo lato client (attributo HTML <code>max</code>), 
+                    ma il server non verifica nulla.
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 La Vulnerabilità</div>
+                <div class="card-text">
+                    Nel file <span class="tech-term">create_booking.php</span>:
+                    <div class="code-box">// ❌ VULNERABILE
+$stmt = $conn->prepare(
+  "INSERT INTO bookings (...) VALUES (...)"
+);
+// Non verifica:
+// - Se guests > max_capacity
+// - Se esistono già prenotazioni per 
+//   quella data/ora
+// - Se il servizio è attivo</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 Passaggi dell'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Metodo 1 – DevTools:</strong><br>
+                Apri F12 → Elements → Trova l'input <span class="tech-term">number_of_guests</span> → 
+                Rimuovi l'attributo <code>max="4"</code> → Inserisci 100 → Invia
+                <br><br>
+                <strong class="text-blue">Metodo 2 – Burp Suite:</strong><br>
+                Intercetta la richiesta POST e modifica:
+                <div class="code-box">number_of_guests=4  →  number_of_guests=100</div>
+                <br>
+                <strong class="text-blue">Metodo 3 – Race Condition:</strong><br>
+                Invia 10 prenotazioni simultanee per lo stesso slot. Senza lock/transazioni, tutte verranno accettate!
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> Validazione server-side: <span class="tech-term">if ($guests > $service['max_capacity']) die();</span><br>
+                <strong class="text-blue">2.</strong> Query di controllo disponibilità prima dell'inserimento<br>
+                <strong class="text-blue">3.</strong> Usare <strong>transazioni DB</strong> con <span class="tech-term">SELECT FOR UPDATE</span> per evitare race conditions<br>
+                <strong class="text-blue">4.</strong> Mai fidarsi degli attributi HTML per la validazione
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 9;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

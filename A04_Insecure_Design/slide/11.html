@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato e come applicarlo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📚 Cosa Abbiamo Esplorato</div>
+                <div class="card-text">
+                    <strong class="text-blue">1. Parameter Tampering:</strong> Modifica di prezzi inviati dal client<br><br>
+                    <strong class="text-blue">2. Coupon Abuse:</strong> Riutilizzo illimitato di codici sconto<br><br>
+                    <strong class="text-blue">3. State Bypass:</strong> Modifica di prenotazioni in stati protetti<br><br>
+                    <strong class="text-blue">4. Cancellazione Fraudolenta:</strong> Cancellare servizi già erogati<br><br>
+                    <strong class="text-blue">5. Overbooking:</strong> Bypass dei limiti di capacità
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🧠 La Lezione Chiave</div>
+                <div class="card-text">
+                    <span class="tech-term">Insecure Design</span> non è un bug nel codice, 
+                    è un <strong>difetto nella progettazione</strong>.
+                    <br><br>
+                    Non basta scrivere codice "corretto": bisogna <strong>pensare come un attaccante</strong> 
+                    durante la fase di design. Ogni flusso di business deve essere analizzato per 
+                    possibili abusi.
+                    <br><br>
+                    <em>"Il client è in territorio nemico. Mai fidarsi."</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔧 Checklist di Sicurezza</div>
+            <div class="card-text">
+                <strong class="text-green">✓</strong> Tutti i calcoli critici (prezzi, sconti, quantità) sono fatti server-side?<br>
+                <strong class="text-green">✓</strong> Ogni utilizzo di risorse limitate (coupon, slot) è tracciato?<br>
+                <strong class="text-green">✓</strong> Le transizioni di stato sono esplicite e validate?<br>
+                <strong class="text-green">✓</strong> I limiti di capacità sono verificati server-side con lock appropriati?<br>
+                <strong class="text-green">✓</strong> Le operazioni irreversibili richiedono conferma e logging?<br>
+                <strong class="text-green">✓</strong> È stato fatto threat modeling durante il design?
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📖 Riferimenti OWASP</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://owasp.org/Top10/A04_2021-Insecure_Design/" style="color: #667eea;">OWASP Top 10 2021 - A04:2021 Insecure Design</a><br><br>
+                <strong>•</strong> <a href="https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/" style="color: #667eea;">OWASP Secure Coding Practices</a><br><br>
+                <strong>•</strong> <a href="https://owasp.org/www-community/Threat_Modeling" style="color: #667eea;">OWASP Threat Modeling</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 11;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

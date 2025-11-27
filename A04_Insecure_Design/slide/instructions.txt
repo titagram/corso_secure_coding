@@ -1,0 +1,46 @@
+
+1
+
+Automatic Zoom
+Cheatsheet Burp Suite – Laboratorio 
+A04: Insecure Design 
+ 
+1. Configurazione di Burp Suite 
+1.  Aprire Burp Suite Community Edition.  
+2.  Avviare un progetto temporaneo (Temporary Project).  
+3.  Nella scheda Proxy → Intercept, premere "Intercept is off".  
+4.  Aprire il browser integrato: Proxy → Open Browser.  
+5.  Navigare all’indirizzo:  http://localhost:8004  
+Burp ora intercetta tutto il traffico dell’applicazione. 
+ 
+2. Obiettivo del laboratorio 
+1.  Manipolare parametri di business logic.  
+2.  Creare prenotazioni a prezzo arbitrario.  
+3.  Applicare più volte lo stesso coupon.  
+4.  Modificare prenotazioni già confermate.  
+5.  Creare overbooking bypassando i vincoli.  
+ 
+3. Esercizio 1: Modifica del Prezzo (Parameter 
+Tampering) 
+1.  Creare una nuova prenotazione dal form.  
+2.  Nel momento in cui si invia il form, attivare l’intercetto:  Proxy → Intercept → "Intercept is on".  
+3.  Inviare la prenotazione nella UI.  
+4.  Burp intercetterà una richiesta POST a create_booking.php.  
+5.  Cercare il parametro total_price.  
+Esempio: 
+total_price=50.00 
+ 
+6.  Modificarlo a:  
+total_price=0.01 
+ 
+7.  Premere "Forward".  
+8.  Verificare nell’interfaccia che la prenotazione risulti creata con il nuovo prezzo.  
+ 
+4. Esercizio 2: Riutilizzo Illimitato dei Coupon 
+1.  Effettuare una prenotazione e arrivare alla pagina in cui è possibile applicare un 
+coupon.  
+2.  Attivare l’intercetto.  
+3.  Applicare il coupon dalla UI (es. WELCOME10).  
+4.  Intercettare la richiesta a apply_coupon.php.  
+5.  Inviare la richiesta a Repeater:  tasto destro → "Send to Repeater".  
+6.  In Repeater, premere "Send" più volte.  

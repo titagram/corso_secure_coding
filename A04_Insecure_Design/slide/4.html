@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Esercizio 1: Esecuzione</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">💰 Esercizio 1: L'Attacco in Azione</h1>
+        <div class="subtitle">Manipoliamo il prezzo intercettando la richiesta POST</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🔍 La Richiesta Intercettata</div>
+            <div class="card-text">
+                In Burp vedrai una richiesta simile a questa:
+                <div class="code-box">POST /create_booking.php HTTP/1.1
+Host: localhost:8004
+Content-Type: application/x-www-form-urlencoded
+
+service_id=1&booking_date=2024-12-25&booking_time=20:00
+&number_of_guests=2&total_price=50.00&discount_code=</div>
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">✏️ La Modifica</div>
+                <div class="card-text">
+                    Trova il parametro <span class="tech-term">total_price=50.00</span> e modificalo:
+                    <div class="code-box">total_price=50.00  →  total_price=0.01</div>
+                    <br>
+                    Premi <strong>"Forward"</strong> per inviare la richiesta modificata al server.
+                    <br><br>
+                    <strong class="text-red">Risultato:</strong> La prenotazione viene creata con prezzo €0.01!
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">✅ Verifica del Successo</div>
+                <div class="card-text">
+                    Torna all'interfaccia dell'applicazione e vai su <span class="tech-term">Dashboard</span>.
+                    <br><br>
+                    Vedrai la tua prenotazione con il prezzo modificato. Il sistema l'ha accettata 
+                    senza alcun controllo!
+                    <br><br>
+                    <strong class="text-green">Impatto reale:</strong> Perdite finanziarie, 
+                    servizi erogati senza pagamento corretto.
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong>Mai fidarsi dell'input del client per valori critici.</strong> Il prezzo deve essere:
+                <br><br>
+                <strong class="text-blue">1.</strong> Recuperato dal database basandosi su <span class="tech-term">service_id</span><br>
+                <strong class="text-blue">2.</strong> Calcolato lato server: <span class="tech-term">base_price × number_of_guests</span><br>
+                <strong class="text-blue">3.</strong> Gli sconti devono essere validati e applicati solo server-side
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 4;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

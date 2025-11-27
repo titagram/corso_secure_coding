@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Esercizio 3: State Bypass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📝 Esercizio 3: Modifica Prenotazioni Confermate</h1>
+        <div class="subtitle">Bypassare i controlli di stato – Modificare l'immodificabile</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    Una prenotazione <strong>confermata</strong> o <strong>completata</strong> non dovrebbe 
+                    essere modificabile. Ma cosa succede se il sistema non controlla lo stato?
+                    <br><br>
+                    <strong>Scenario:</strong> Ho una prenotazione per 2 persone a €100, già confermata. 
+                    Voglio cambiarla a 10 persone mantenendo il prezzo originale, oppure modificare 
+                    il prezzo dopo che è stata approvata.
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 La Vulnerabilità</div>
+                <div class="card-text">
+                    Nel file <span class="tech-term">modify_booking.php</span>:
+                    <div class="code-box">// ❌ VULNERABILE
+$stmt = $conn->prepare(
+  "UPDATE bookings SET ... WHERE id = ?"
+);
+// Non verifica:
+// - Se status='confirmed' o 'completed'
+// - Se la data è nel passato
+// - Se c'è disponibilità per le modifiche</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 Passaggi dell'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Crea una prenotazione e falla confermare (o confermala tu se hai accesso admin)<br><br>
+                <strong class="text-blue">Step 2:</strong> Vai su <span class="tech-term">Dashboard → Modifica Prenotazione</span><br><br>
+                <strong class="text-blue">Step 3:</strong> Modifica uno o più campi:
+                <ul style="margin-left: 30px; margin-top: 10px;">
+                    <li>📅 <strong>Data:</strong> anche una data nel passato!</li>
+                    <li>⏰ <strong>Ora:</strong> qualsiasi orario</li>
+                    <li>👥 <strong>Ospiti:</strong> superiore alla capacità massima</li>
+                    <li>💰 <strong>Prezzo:</strong> €0.01 (sì, anche dopo la conferma!)</li>
+                </ul>
+                <br>
+                <strong class="text-blue">Step 4:</strong> Salva le modifiche – Verranno applicate senza controlli!
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                Implementare una <strong>macchina a stati</strong>: pending → confirmed → completed → cancelled. 
+                Ogni transizione ha regole specifiche. Una prenotazione <span class="tech-term">confirmed</span> 
+                può solo essere cancellata (con penali), mai modificata. Mai permettere modifiche su date passate.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

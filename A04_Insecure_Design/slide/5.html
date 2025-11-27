@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Esercizio 2: Coupon Abuse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎟️ Esercizio 2: Riutilizzo Illimitato dei Coupon</h1>
+        <div class="subtitle">Quando "usa e getta" diventa "usa e riusa"</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    L'applicazione offre coupon sconto come <span class="tech-term">WELCOME10</span> (10% sconto). 
+                    Vogliamo applicare lo stesso coupon <strong>infinite volte</strong> alla stessa prenotazione, 
+                    cumulando sconti fino a pagare quasi nulla.
+                    <br><br>
+                    <strong>Perché funziona?</strong> Il sistema non traccia se un coupon è già stato 
+                    usato dall'utente o sulla prenotazione corrente.
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 La Vulnerabilità</div>
+                <div class="card-text">
+                    Nel file <span class="tech-term">apply_coupon.php</span>:
+                    <div class="code-box">// ❌ VULNERABILE
+$stmt = $conn->prepare(
+  "SELECT * FROM coupons WHERE code = ?"
+);
+// Non verifica:
+// - Se l'utente ha già usato il coupon
+// - Se max_uses è stato raggiunto
+// - Se è già applicato alla prenotazione</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 20px;">
+            <div class="card-title">🎫 Coupon Disponibili per l'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">WELCOME10</strong> – 10% sconto, nessun limite dichiarato<br>
+                <strong class="text-green">SUMMER20</strong> – 20% sconto, max 100 utilizzi totali (ma non controllato!)<br>
+                <strong class="text-yellow">VIP50</strong> – 50% sconto, max 10 utilizzi totali (ma non controllato!)<br>
+                <strong class="text-red">FIXED15</strong> – €15 sconto fisso, nessun limite
+                <br><br>
+                Con <span class="tech-term">VIP50</span> applicato due volte arriviamo a uno sconto del 100%!
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Configurazione Burp Suite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Configurazione Burp Suite</h1>
+        <div class="subtitle">Il nostro strumento di intercettazione</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🤔 Perché Burp Suite?</div>
+            <div class="card-text">
+                <span class="tech-term">Burp Suite</span> è un proxy HTTP che si posiziona tra il browser e il server.
+                Ogni richiesta passa attraverso di esso, permettendoci di <strong>vedere</strong>, <strong>modificare</strong> 
+                e <strong>ripetere</strong> le richieste. È lo strumento fondamentale per testare la business logic:
+                il browser ci mostra solo quello che l'applicazione vuole farci vedere, Burp ci mostra la <em>realtà</em>.
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">📋 Passaggi di Setup</div>
+                <div class="card-text">
+                    <strong class="text-blue">1.</strong> Aprire <span class="tech-term">Burp Suite Community Edition</span><br><br>
+                    <strong class="text-blue">2.</strong> Avviare un progetto temporaneo (<em>Temporary Project</em>)<br><br>
+                    <strong class="text-blue">3.</strong> Tab <span class="tech-term">Proxy → Intercept</span>, verificare che sia "off"<br><br>
+                    <strong class="text-blue">4.</strong> Aprire il browser integrato: <span class="tech-term">Proxy → Open Browser</span><br><br>
+                    <strong class="text-blue">5.</strong> Navigare all'applicazione
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🌐 Target dell'Attacco</div>
+                <div class="card-text">
+                    L'applicazione vulnerabile è disponibile all'indirizzo:
+                    <div class="code-box">http://localhost:8004</div>
+                    <br>
+                    Da questo momento, Burp intercetta <strong>tutto il traffico</strong>. 
+                    Ogni click, ogni form, ogni richiesta AJAX passa attraverso il nostro proxy.
+                    <br><br>
+                    <strong class="text-green">Suggerimento:</strong> Tieni d'occhio la tab <span class="tech-term">HTTP History</span>!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">💡 Nota per l'Attaccante</div>
+            <div class="card-text">
+                Prima di attaccare, <strong>esplora l'applicazione normalmente</strong>. Registra un account, 
+                crea prenotazioni legittime, usa i coupon. Capire il flusso normale ti permette di identificare 
+                dove la logica può essere manipolata. I campi nascosti (<span class="tech-term">hidden fields</span>) 
+                e i parametri POST sono i tuoi migliori amici.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

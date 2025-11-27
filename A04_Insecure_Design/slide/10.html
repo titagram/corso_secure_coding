@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Mitigazioni e Best Practice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Mitigazioni e Best Practice</h1>
+        <div class="subtitle">Come difendersi dall'Insecure Design</div>
+
+        <div class="grid-3-col">
+            <div class="card border-green">
+                <div class="card-title">💰 Protezione Prezzi</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO
+$service = get_service($id);
+$price = $service['base_price'];
+$total = $price * $guests;
+
+// Ignora $_POST['total_price']
+// Calcola SEMPRE server-side</div>
+                    <br>
+                    <strong>Regola:</strong> Il prezzo è un dato del server, mai del client.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🎟️ Protezione Coupon</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO
+// Tabella coupon_usage
+$used = $conn->query(
+  "SELECT COUNT(*) FROM 
+   coupon_usage WHERE 
+   user_id=? AND coupon_id=?"
+);
+if ($used > 0) die("Già usato");</div>
+                    <br>
+                    <strong>Regola:</strong> Traccia ogni utilizzo, verifica sempre.
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">📊 Protezione Capacità</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO
+if ($guests > $max_capacity) {
+  die("Capacità superata");
+}
+
+// Verifica conflitti
+$existing = get_bookings(
+  $service, $date, $time
+);
+if (count($existing) > 0) {...}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-yellow">
+                <div class="card-title">🔄 Macchina a Stati</div>
+                <div class="card-text">
+                    Implementa transizioni di stato esplicite:
+                    <div class="code-box">pending → confirmed → completed
+    ↓           ↓           ✗
+cancelled    cancelled   (non cancellabile)</div>
+                    <br>
+                    Ogni operazione deve verificare lo stato corrente e le transizioni permesse.
+                    <br><br>
+                    <strong class="text-yellow">Importante:</strong> "completed" è uno stato finale, nessuna modifica possibile.
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">⚡ Race Conditions</div>
+                <div class="card-text">
+                    Usa transazioni e lock per operazioni critiche:
+                    <div class="code-box">BEGIN TRANSACTION;
+SELECT * FROM bookings 
+  WHERE date=? AND time=? 
+  FOR UPDATE;
+-- Verifica disponibilità
+INSERT INTO bookings ...;
+COMMIT;</div>
+                    <br>
+                    <strong class="text-red">Senza lock:</strong> 10 richieste simultanee = 10 prenotazioni accettate!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

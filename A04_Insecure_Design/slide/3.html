@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A04:2021 - Esercizio 1: Parameter Tampering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">💰 Esercizio 1: Modifica del Prezzo</h1>
+        <div class="subtitle">Parameter Tampering – Il classico attacco alla business logic</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    Vogliamo prenotare un servizio da <strong class="text-red">€50.00</strong> pagando 
+                    <strong class="text-green">€0.01</strong>. Come? Intercettando la richiesta e 
+                    modificando il parametro <span class="tech-term">total_price</span>.
+                    <br><br>
+                    <strong>Perché funziona?</strong> L'applicazione <em>si fida</em> del valore inviato 
+                    dal client invece di calcolarlo lato server. Il prezzo è un campo nascosto nel form, 
+                    ma "nascosto" non significa "sicuro".
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 La Vulnerabilità</div>
+                <div class="card-text">
+                    Nel file <span class="tech-term">create_booking.php</span>:
+                    <div class="code-box">// ❌ VULNERABILE
+$total_price = floatval($_POST['total_price']);
+// Il server prende il prezzo dal client!
+// Nessuna verifica con il DB</div>
+                    <br>
+                    Il server dovrebbe <em>ignorare</em> il prezzo inviato e calcolarlo 
+                    basandosi su <span class="tech-term">service_id</span> e <span class="tech-term">number_of_guests</span>.
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 20px;">
+            <div class="card-title">📝 Scenario di Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Naviga su "Servizi" e seleziona un servizio (es. "Cena Romantica" – €50.00)<br><br>
+                <strong class="text-blue">Step 2:</strong> Compila il form di prenotazione normalmente<br><br>
+                <strong class="text-blue">Step 3:</strong> <strong>Prima di inviare</strong>, attiva l'intercettazione in Burp: 
+                <span class="tech-term">Proxy → Intercept → "Intercept is on"</span><br><br>
+                <strong class="text-blue">Step 4:</strong> Clicca su "Prenota" nella UI – Burp catturerà la richiesta POST
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 3;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+
