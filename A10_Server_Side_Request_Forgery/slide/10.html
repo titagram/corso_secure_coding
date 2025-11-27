@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato e come applicarlo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📚 Cosa Abbiamo Esplorato</div>
+                <div class="card-text">
+                    <strong class="text-blue">1. Localhost Access:</strong> Varianti IP (decimal, hex, IPv6)<br><br>
+                    <strong class="text-blue">2. Metadata Services:</strong> AWS, GCP, Azure – credenziali cloud<br><br>
+                    <strong class="text-blue">3. Port Scanning:</strong> Mappatura servizi interni<br><br>
+                    <strong class="text-blue">4. Bypass Filtri:</strong> Encoding, DNS rebinding, redirect<br><br>
+                    <strong class="text-blue">5. Protocolli:</strong> file://, gopher://, dict:// per RCE<br><br>
+                    <strong class="text-blue">6. Strumenti:</strong> SSRFmap, Gopherus, ffuf, Burp
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🧠 La Lezione Chiave</div>
+                <div class="card-text">
+                    <span class="tech-term">SSRF trasforma il server in un proxy fidato.</span>
+                    <br><br>
+                    Il server può raggiungere risorse che tu non puoi vedere: localhost, rete interna, 
+                    metadata services. Se il server fetcha URL senza validazione, 
+                    hai accesso a <strong>tutta l'infrastruttura</strong>.
+                    <br><br>
+                    <em>"Mai fidarsi di URL forniti dall'utente."</em>
+                    <br><br>
+                    <strong>Il breach Capital One 2019 (100M record) è partito da SSRF!</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">✅ Checklist di Sicurezza</div>
+            <div class="card-text">
+                <strong class="text-green">☐</strong> Implementare <strong>whitelist</strong> di domini consentiti<br>
+                <strong class="text-green">☐</strong> Bloccare IP privati e localhost (tutte le forme)<br>
+                <strong class="text-green">☐</strong> Bloccare <span class="tech-term">169.254.169.254</span> (metadata services)<br>
+                <strong class="text-green">☐</strong> Permettere solo HTTP/HTTPS<br>
+                <strong class="text-green">☐</strong> Disabilitare o validare redirect<br>
+                <strong class="text-green">☐</strong> Risolvere DNS e validare IP risultante<br>
+                <strong class="text-green">☐</strong> Implementare timeout brevi
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📖 Riferimenti</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/" style="color: #667eea;">OWASP Top 10 2021 - A10 SSRF</a><br><br>
+                <strong>•</strong> <a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html" style="color: #667eea;">OWASP SSRF Prevention Cheat Sheet</a><br><br>
+                <strong>•</strong> <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery" style="color: #667eea;">PayloadsAllTheThings - SSRF</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

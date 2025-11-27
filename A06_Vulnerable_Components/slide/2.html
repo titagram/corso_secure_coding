@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Fingerprinting dei Componenti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 Fingerprinting dei Componenti</h1>
+        <div class="subtitle">Il primo passo: identificare cosa gira sul target</div>
+
+        <div class="grid-3-col">
+            <div class="card border-blue">
+                <div class="card-title">🌐 Frontend</div>
+                <div class="card-text">
+                    <span class="tech-term">jQuery 1.7.2</span><br>
+                    CVE-2011-4969 (XSS)
+                    <br><br>
+                    <span class="tech-term">Bootstrap 3.4.1</span><br>
+                    Obsoleto, non supportato
+                    <br><br>
+                    <strong>Come trovarli:</strong><br>
+                    DevTools → Sources/Network
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">⚙️ Backend</div>
+                <div class="card-text">
+                    <span class="tech-term">PHP 7.4</span><br>
+                    EOL: 28 Nov 2022
+                    <br><br>
+                    <span class="tech-term">Apache</span><br>
+                    Versione esposta in header
+                    <br><br>
+                    <strong>Come trovarli:</strong><br>
+                    Header X-Powered-By
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">🗄️ Database</div>
+                <div class="card-text">
+                    <span class="tech-term">MySQL 5.7</span><br>
+                    Non più supportato
+                    <br><br>
+                    <strong>CVE note:</strong><br>
+                    CVE-2021-3713<br>
+                    CVE-2022-21351
+                    <br><br>
+                    <strong>Come trovarlo:</strong><br>
+                    info.php o connessione diretta
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 25px;">
+            <div class="card-title">🌐 Target dell'Attacco</div>
+            <div class="card-text">
+                L'applicazione vulnerabile è disponibile all'indirizzo:
+                <div class="code-box">http://localhost:8006</div>
+                <br>
+                <strong class="text-green">Pagina info:</strong> <span class="tech-term">http://localhost:8006/info.php</span> 
+                espone tutte le versioni dei componenti!
+                <br><br>
+                <strong class="text-green">Account di test:</strong> admin/admin123, mario.rossi/alice123
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

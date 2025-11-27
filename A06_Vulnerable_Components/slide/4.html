@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Esercizio 2: Sfruttare XSS con jQuery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">💉 Esercizio 2: Sfruttare XSS con jQuery</h1>
+        <div class="subtitle">Dal CVE all'exploit funzionante</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🎯 Scenario dell'Attacco</div>
+            <div class="card-text">
+                L'applicazione ha una sezione commenti che usa jQuery <span class="tech-term">.html()</span> 
+                per visualizzare i contenuti. L'area vulnerabile è evidenziata con <strong style="background: #fff3cd; padding: 2px 6px;">sfondo giallo</strong>.
+                <div class="code-box">http://localhost:8006/post.php?id=1</div>
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">📝 Passaggi dell'Attacco</div>
+                <div class="card-text">
+                    <strong class="text-blue">Step 1:</strong> Vai su un post del blog<br><br>
+                    <strong class="text-blue">Step 2:</strong> Scorri fino al form "Aggiungi un Commento"<br><br>
+                    <strong class="text-blue">Step 3:</strong> Nel campo "Commento", inserisci:
+                    <div class="code-box">&lt;img src=x onerror="alert('XSS con jQuery 1.7.2!')"&gt;</div>
+                    <br>
+                    <strong class="text-blue">Step 4:</strong> Compila Nome e Email, poi invia<br><br>
+                    <strong class="text-blue">Step 5:</strong> Ricarica la pagina → L'alert appare!
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">✅ Risultato</div>
+                <div class="card-text">
+                    Nella sezione vulnerabile (sfondo giallo), il codice JavaScript 
+                    viene eseguito automaticamente!
+                    <br><br>
+                    <strong>Perché funziona?</strong><br>
+                    jQuery <span class="tech-term">.html()</span> interpreta il tag 
+                    <span class="tech-term">&lt;img&gt;</span>, il browser tenta di caricare 
+                    l'immagine "x" (inesistente), fallisce, e scatta 
+                    <span class="tech-term">onerror</span> che esegue il nostro JavaScript!
+                    <br><br>
+                    <strong class="text-green">Nota:</strong> I commenti "normali" (sfondo bianco) 
+                    sono sanitizzati con <span class="tech-term">htmlspecialchars()</span>.
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">⚡ Payload Alternativi</div>
+            <div class="card-text">
+                <div class="code-box">&lt;svg onload="alert('XSS')"&gt;
+&lt;body onload="alert('XSS')"&gt;
+&lt;script&gt;alert('XSS')&lt;/script&gt;
+&lt;img src=x onerror="alert(document.domain)"&gt;</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 4;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Strumenti di Dependency Check</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📊 Strumenti di Dependency Check</h1>
+        <div class="subtitle">Automatizzare la ricerca di componenti vulnerabili</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🔍 OWASP Dependency-Check</div>
+                <div class="card-text">
+                    Analizza le dipendenze del progetto e cerca CVE:
+                    <div class="code-box"># Installazione
+brew install dependency-check  # Mac
+apt install dependency-check   # Linux
+
+# Scansione
+dependency-check --scan /path/to/project \
+  --format HTML --out report.html</div>
+                    <br>
+                    <strong>Genera report HTML</strong> con tutte le CVE trovate, severity e link ai fix.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">📦 npm audit / composer audit</div>
+                <div class="card-text">
+                    Per progetti JavaScript e PHP:
+                    <div class="code-box"># JavaScript (npm)
+npm audit
+npm audit fix
+
+# PHP (Composer)
+composer audit
+
+# Python (pip)
+pip-audit</div>
+                    <br>
+                    <strong>Integra nella CI/CD</strong> per bloccare deploy con vulnerabilità note.
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-purple">
+                <div class="card-title">🔔 Snyk</div>
+                <div class="card-text">
+                    Servizio SaaS per monitoraggio continuo:
+                    <div class="code-box"># CLI
+snyk test
+snyk monitor
+
+# Integrazione GitHub
+# Crea PR automatiche per fix</div>
+                    <br>
+                    <strong>Free tier disponibile</strong> per progetti open source.
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🤖 GitHub Dependabot</div>
+                <div class="card-text">
+                    Aggiornamenti automatici delle dipendenze:
+                    <br><br>
+                    • Scan automatico del repository<br>
+                    • Crea Pull Request per aggiornamenti<br>
+                    • Alerting per nuove CVE<br>
+                    • Gratuito per tutti i repo GitHub
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">💡 Best Practice</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> Esegui dependency check in CI/CD (blocca build se CVE critiche)<br>
+                <strong class="text-blue">2.</strong> Abilita Dependabot/Snyk per alerting continuo<br>
+                <strong class="text-blue">3.</strong> Mantieni un inventario aggiornato delle dipendenze (SBOM)
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 8;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

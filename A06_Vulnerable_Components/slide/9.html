@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Mitigazioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Mitigazioni</h1>
+        <div class="subtitle">Come proteggere l'applicazione dai componenti vulnerabili</div>
+
+        <div class="grid-3-col">
+            <div class="card border-green">
+                <div class="card-title">📦 Aggiornare jQuery</div>
+                <div class="card-text">
+                    <div class="code-box">&lt;!-- ❌ VECCHIO --&gt;
+&lt;script src="jquery-1.7.2.min.js"&gt;
+&lt;/script&gt;
+
+&lt;!-- ✅ NUOVO --&gt;
+&lt;script src="https://code.jquery.com
+/jquery-3.7.1.min.js"&gt;&lt;/script&gt;</div>
+                    <br>
+                    Usa sempre l'ultima versione stabile.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🐘 Aggiornare PHP</div>
+                <div class="card-text">
+                    <div class="code-box"># Dockerfile
+# ❌ VECCHIO
+FROM php:7.4-apache
+
+# ✅ NUOVO
+FROM php:8.2-apache</div>
+                    <br>
+                    PHP 8.2+ è attivamente supportato.
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🗄️ Aggiornare MySQL</div>
+                <div class="card-text">
+                    <div class="code-box"># docker-compose.yml
+# ❌ VECCHIO
+image: mysql:5.7
+
+# ✅ NUOVO
+image: mysql:8.0</div>
+                    <br>
+                    MySQL 8.0+ ha supporto attivo.
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-yellow">
+                <div class="card-title">✍️ Sanitizzare Input con jQuery</div>
+                <div class="card-text">
+                    Anche con jQuery aggiornato, sanitizza sempre:
+                    <div class="code-box">// ❌ VULNERABILE
+$('#content').html(userInput);
+
+// ✅ SICURO: Usa .text()
+$('#content').text(userInput);
+
+// ✅ SICURO: Sanitizza prima
+var safe = $('&lt;div&gt;').text(userInput).html();
+$('#content').html(safe);</div>
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">🔒 Nascondere Versioni</div>
+                <div class="card-text">
+                    Non esporre informazioni sulle versioni:
+                    <div class="code-box"># php.ini
+expose_php = Off
+
+# httpd.conf
+ServerTokens Prod
+ServerSignature Off
+Header unset X-Powered-By
+
+# Rimuovi info.php in produzione!
+rm /var/www/html/info.php</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 9;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

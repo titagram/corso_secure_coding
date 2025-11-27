@@ -38,10 +38,25 @@ if (!$plugin) {
 if (isset($_POST['install'])) {
     // VULNERABILITÀ: Deserializza dati senza validazione
     if (!empty($plugin['config_data'])) {
+        // Assicuriamoci che PluginLoader sia caricato
+        if (!class_exists('PluginLoader')) {
+            require_once 'PluginLoader.php';
+        }
+        if (!class_exists('PluginConfig')) {
+            require_once 'PluginLoader.php';
+        }
+        
         // VULNERABILITÀ CRITICA: unserialize() può eseguire codice arbitrario
         // Se config_data contiene un oggetto PluginLoader o PluginConfig serializzato
         // con comandi arbitrari, verranno eseguiti durante __wakeup() o __destruct()
-        $config = unserialize($plugin['config_data']);
+        try {
+            $config = @unserialize($plugin['config_data']);
+            // Nota: __wakeup() viene chiamato DURANTE unserialize(), non dopo!
+        } catch (Exception $e) {
+            // Ignora errori (vulnerabilità!)
+        } catch (Error $e) {
+            // Ignora anche errori fatali (vulnerabilità!)
+        }
         
         // VULNERABILITÀ: Non verifica se la deserializzazione è andata a buon fine
         // o se contiene oggetti pericolosi

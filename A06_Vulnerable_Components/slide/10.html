@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato e come applicarlo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📚 Cosa Abbiamo Esplorato</div>
+                <div class="card-text">
+                    <strong class="text-blue">1. Fingerprinting:</strong> Identificare versioni con DevTools, WhatWeb, Nmap<br><br>
+                    <strong class="text-blue">2. jQuery XSS:</strong> CVE-2011-4969, payload con .html()<br><br>
+                    <strong class="text-blue">3. Payload avanzati:</strong> Cookie stealing, form logging, redirect<br><br>
+                    <strong class="text-blue">4. EOL Components:</strong> PHP 7.4, MySQL 5.7 e CVE associate<br><br>
+                    <strong class="text-blue">5. Tools:</strong> Dependency-Check, npm audit, Snyk
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🧠 La Lezione Chiave</div>
+                <div class="card-text">
+                    <span class="tech-term">Ogni dipendenza è una potenziale vulnerabilità.</span>
+                    <br><br>
+                    Gli attaccanti non devono essere geni: cercano versioni, trovano CVE, 
+                    scaricano exploit già pronti. La sicurezza è una corsa agli aggiornamenti.
+                    <br><br>
+                    <em>"Un'applicazione è sicura quanto il suo componente più obsoleto."</em>
+                    <br><br>
+                    <strong>Automatizza il controllo delle dipendenze nella CI/CD!</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">✅ Checklist Studenti</div>
+            <div class="card-text">
+                <strong class="text-green">☐</strong> Identificare componenti obsoleti (jQuery, PHP, MySQL, Bootstrap)<br>
+                <strong class="text-green">☐</strong> Cercare CVE per ogni componente trovato<br>
+                <strong class="text-green">☐</strong> Eseguire XSS base con jQuery 1.7.2<br>
+                <strong class="text-green">☐</strong> Eseguire XSS avanzato (cookie stealing, form logging)<br>
+                <strong class="text-green">☐</strong> Osservare data exfiltration sul server Python<br>
+                <strong class="text-green">☐</strong> Annotare le mitigazioni per ogni vulnerabilità
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📖 Riferimenti</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/" style="color: #667eea;">OWASP Top 10 2021 - A06</a><br><br>
+                <strong>•</strong> <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-4969" style="color: #667eea;">CVE-2011-4969 - jQuery XSS</a><br><br>
+                <strong>•</strong> <a href="https://owasp.org/www-project-dependency-check/" style="color: #667eea;">OWASP Dependency-Check</a><br><br>
+                <strong>•</strong> <a href="https://endoflife.date" style="color: #667eea;">endoflife.date - Tracker versioni EOL</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

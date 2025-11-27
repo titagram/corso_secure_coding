@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Mitigazioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Mitigazioni</h1>
+        <div class="subtitle">Come proteggere l'applicazione da SSRF</div>
+
+        <div class="grid-2-col">
+            <div class="card border-green">
+                <div class="card-title">✅ Whitelist Domini</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO: Solo domini specifici
+$allowed = ['example.com', 'api.trusted.com'];
+$parsed = parse_url($url);
+$host = $parsed['host'];
+
+if (!in_array($host, $allowed)) {
+    die("Domain not allowed");
+}</div>
+                    <br>
+                    <strong class="text-green">Whitelist > Blacklist</strong>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🚫 Blocca IP Privati</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO: Blocca IP privati
+function isPrivateIP($ip) {
+    return !filter_var($ip, 
+        FILTER_VALIDATE_IP, 
+        FILTER_FLAG_NO_PRIV_RANGE | 
+        FILTER_FLAG_NO_RES_RANGE);
+}
+
+$ip = gethostbyname($host);
+if (isPrivateIP($ip)) {
+    die("Private IP blocked");
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-purple">
+                <div class="card-title">📡 Solo HTTP/HTTPS</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO: Limita protocolli
+$scheme = parse_url($url, PHP_URL_SCHEME);
+if (!in_array($scheme, ['http', 'https'])) {
+    die("Only HTTP/HTTPS");
+}
+
+// cURL: limita protocolli
+curl_setopt($ch, CURLOPT_PROTOCOLS, 
+    CURLPROTO_HTTP | CURLPROTO_HTTPS);
+curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS, 
+    CURLPROTO_HTTP | CURLPROTO_HTTPS);</div>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🔄 Gestione Redirect</div>
+                <div class="card-text">
+                    <div class="code-box">// ✅ CORRETTO: Disabilita redirect
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+
+// Oppure: valida ogni redirect
+curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+// + callback per validare ogni URL</div>
+                    <br>
+                    <strong>I redirect possono bypassare i filtri!</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-top: 20px;">
+            <div class="card-title">⏱️ Timeout e Limiti</div>
+            <div class="card-text">
+                <div class="code-box">curl_setopt($ch, CURLOPT_TIMEOUT, 2);           // Max 2 secondi
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);    // Max 1 secondo connessione
+curl_setopt($ch, CURLOPT_MAXFILESIZE, 1048576); // Max 1MB risposta</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 9;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

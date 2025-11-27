@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Scenario e Setup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Scenario e Setup</h1>
+        <div class="subtitle">Sistema di URL Preview vulnerabile a SSRF</div>
+
+        <div class="grid-3-col">
+            <div class="card border-red">
+                <div class="card-title">🌐 URL Fetching</div>
+                <div class="card-text">
+                    Nessuna validazione URL:
+                    <br><br>
+                    • <span class="tech-term">localhost</span> accessibile<br>
+                    • <span class="tech-term">IP privati</span> raggiungibili<br>
+                    • <span class="tech-term">Metadata</span> esposti<br>
+                    • Porte arbitrarie
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🔓 Filtri Deboli</div>
+                <div class="card-text">
+                    Bypass facili:
+                    <br><br>
+                    • URL encoding<br>
+                    • IPv6 <span class="tech-term">[::1]</span><br>
+                    • Decimal/Hex IP<br>
+                    • DNS rebinding
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">📡 Protocolli</div>
+                <div class="card-text">
+                    Supporta protocolli pericolosi:
+                    <br><br>
+                    • <span class="tech-term">file://</span><br>
+                    • <span class="tech-term">gopher://</span><br>
+                    • <span class="tech-term">dict://</span><br>
+                    • HTTP/HTTPS
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 25px;">
+            <div class="card-title">🌐 Target dell'Attacco</div>
+            <div class="card-text">
+                L'applicazione vulnerabile è disponibile all'indirizzo:
+                <div class="code-box">http://localhost:8010</div>
+                <br>
+                <strong class="text-green">Servizi interni:</strong><br>
+                • MySQL: porta <span class="tech-term">3310</span><br>
+                • Redis: porta <span class="tech-term">6370</span>
+                <br><br>
+                <strong class="text-green">Account:</strong> admin/password, mario.rossi/password
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

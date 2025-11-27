@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Esercizio 2: Metadata Services</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">☁️ Esercizio 2: Metadata Services</h1>
+        <div class="subtitle">Il Santo Graal dell'SSRF – Credenziali cloud gratuite</div>
+
+        <div class="card border-red" style="margin-bottom: 25px;">
+            <div class="card-title">🎯 Perché è Critico</div>
+            <div class="card-text">
+                I cloud provider (AWS, GCP, Azure) espongono un <span class="tech-term">metadata service</span> 
+                su <span class="tech-term">169.254.169.254</span>. Da lì puoi estrarre:
+                <br><br>
+                • <strong>Credenziali IAM temporanee</strong> (access key, secret key, token)<br>
+                • <strong>User-data</strong> (spesso contiene password e chiavi)<br>
+                • <strong>Informazioni istanza</strong> (hostname, IP, region)
+            </div>
+        </div>
+
+        <div class="grid-3-col">
+            <div class="card border-yellow">
+                <div class="card-title">🟠 AWS</div>
+                <div class="card-text">
+                    <div class="code-box">http://169.254.169.254/
+latest/meta-data/
+
+http://169.254.169.254/
+latest/meta-data/iam/
+security-credentials/
+
+http://169.254.169.254/
+latest/user-data</div>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🔵 Google Cloud</div>
+                <div class="card-text">
+                    <div class="code-box">http://metadata.google.
+internal/computeMetadata/
+v1/
+
+http://metadata.google.
+internal/computeMetadata/
+v1/instance/
+service-accounts/</div>
+                    <br>
+                    <strong>Header richiesto:</strong><br>
+                    <span class="tech-term">Metadata-Flavor: Google</span>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🟣 Azure</div>
+                <div class="card-text">
+                    <div class="code-box">http://169.254.169.254/
+metadata/instance
+?api-version=2021-02-01
+
+http://169.254.169.254/
+metadata/identity/
+oauth2/token</div>
+                    <br>
+                    <strong>Header richiesto:</strong><br>
+                    <span class="tech-term">Metadata: true</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">💡 Impatto Reale</div>
+            <div class="card-text">
+                Con le credenziali IAM estratte puoi: accedere a S3, EC2, RDS, Lambda... 
+                <strong>compromissione totale dell'account cloud!</strong>
+                Questo è esattamente come sono avvenuti breach famosi (Capital One 2019).
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 4;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

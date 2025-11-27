@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A08:2021 - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato e come applicarlo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📚 Cosa Abbiamo Esplorato</div>
+                <div class="card-text">
+                    <strong class="text-blue">1. Deserializzazione:</strong> Da unserialize() a RCE con magic methods<br><br>
+                    <strong class="text-blue">2. Payload:</strong> Web shell, reverse shell, lettura file<br><br>
+                    <strong class="text-blue">3. Integrità:</strong> Hash generati ma mai verificati<br><br>
+                    <strong class="text-blue">4. Upload:</strong> Nessun controllo, path traversal<br><br>
+                    <strong class="text-blue">5. Supply Chain:</strong> Aggiornamenti non verificati, MITM
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🧠 La Lezione Chiave</div>
+                <div class="card-text">
+                    <span class="tech-term">Mai fidarsi di dati esterni.</span>
+                    <br><br>
+                    La deserializzazione è come aprire un pacco di uno sconosciuto: 
+                    potrebbe contenere una bomba. L'integrità va <strong>sempre verificata</strong>, 
+                    non basta generare un hash se poi non lo controlli.
+                    <br><br>
+                    <em>"Se non verifichi, non proteggi."</em>
+                    <br><br>
+                    <strong>Supply chain attacks colpiscono migliaia di sistemi in un colpo solo!</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">✅ Checklist di Sicurezza</div>
+            <div class="card-text">
+                <strong class="text-green">☐</strong> Evitare <span class="tech-term">unserialize()</span> su dati utente – usare JSON<br>
+                <strong class="text-green">☐</strong> Se necessario, usare whitelist di classi consentite<br>
+                <strong class="text-green">☐</strong> Verificare hash SHA-256 prima di installare/eseguire<br>
+                <strong class="text-green">☐</strong> Implementare firma digitale per pacchetti/plugin<br>
+                <strong class="text-green">☐</strong> Validare upload: tipo, dimensione, nome, contenuto<br>
+                <strong class="text-green">☐</strong> Usare solo HTTPS per aggiornamenti<br>
+                <strong class="text-green">☐</strong> Verificare certificati SSL
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📖 Riferimenti</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/" style="color: #667eea;">OWASP Top 10 2021 - A08</a><br><br>
+                <strong>•</strong> <a href="https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html" style="color: #667eea;">OWASP Deserialization Cheat Sheet</a><br><br>
+                <strong>•</strong> <a href="https://cwe.mitre.org/data/definitions/502.html" style="color: #667eea;">CWE-502: Deserialization of Untrusted Data</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

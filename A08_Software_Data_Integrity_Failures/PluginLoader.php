@@ -11,13 +11,16 @@ class PluginLoader {
     // Se un attaccante controlla i dati serializzati, può eseguire comandi arbitrari
     public function __wakeup() {
         // VULNERABILITÀ: Esegue comandi senza validazione
-        if (isset($this->command)) {
+        if (isset($this->command) && !empty($this->command)) {
             // VULNERABILITÀ CRITICA: Esecuzione comando arbitrario
-            system($this->command);
+            // Esegue il comando e salva l'output in un file per verifica
+            $output_file = '/tmp/plugin_exec_' . time() . '.txt';
+            $full_command = $this->command . ' > ' . $output_file . ' 2>&1';
+            system($full_command);
         }
         
         // VULNERABILITÀ: Carica file senza verifica di integrità
-        if (isset($this->plugin_file) && file_exists($this->plugin_file)) {
+        if (isset($this->plugin_file) && !empty($this->plugin_file) && file_exists($this->plugin_file)) {
             // VULNERABILITÀ: Include file senza verificare hash o firma
             include $this->plugin_file;
         }

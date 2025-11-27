@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>OWASP A02:2021 - Cryptographic Failures</title>
+    <title>OWASP A08:2021 - Software and Data Integrity Failures</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,31 +13,31 @@
     </div>
 
     <div class="container">
-        <h1 class="title">🔓 OWASP A02:2021 – Cryptographic Failures</h1>
-        <div class="subtitle">Quando la crittografia fallisce, i segreti diventano pubblici</div>
+        <h1 class="title">🔐 OWASP A08:2021 – Software & Data Integrity Failures</h1>
+        <div class="subtitle">Quando i dati serializzati diventano armi e gli aggiornamenti tradiscono</div>
 
         <div class="grid-2-col">
             <div class="card border-red">
                 <div class="card-title">⚠️ La Minaccia</div>
                 <div class="card-text">
-                    Le <span class="tech-term">Cryptographic Failures</span> sono al secondo posto nella OWASP Top 10. 
-                    Includono: password hashate con algoritmi deboli, dati sensibili trasmessi in chiaro, 
-                    chiavi esposte e configurazioni errate.
+                    I <span class="tech-term">Software & Data Integrity Failures</span> sono all'ottavo posto nella OWASP Top 10.
+                    Includono: deserializzazione non sicura, mancanza di verifica di integrità, 
+                    aggiornamenti da sorgenti non verificate.
                     <br><br>
-                    <strong class="text-red">Conseguenze:</strong> furto di credenziali, violazione dati, 
-                    accesso non autorizzato a sistemi critici.
+                    <strong class="text-red">Conseguenze:</strong> RCE (Remote Code Execution), 
+                    supply chain attacks, compromissione totale del sistema.
                 </div>
             </div>
 
             <div class="card border-blue">
                 <div class="card-title">🎯 Il Nostro Obiettivo</div>
                 <div class="card-text">
-                    Simuleremo un attacco reale su un <span class="tech-term">e-commerce vulnerabile</span>. 
-                    Seguiremo l'intera kill-chain:
+                    Attaccheremo un <span class="tech-term">sistema di gestione plugin</span> vulnerabile:
                     <br><br>
-                    <strong class="text-blue">1.</strong> Ricognizione → <strong class="text-blue">2.</strong> Brute Force → 
-                    <strong class="text-blue">3.</strong> Dump DB → <strong class="text-blue">4.</strong> Estrazione Hash → 
-                    <strong class="text-blue">5.</strong> Cracking
+                    <strong class="text-blue">1.</strong> Deserializzazione → RCE<br>
+                    <strong class="text-blue">2.</strong> Hash non verificati → Modifica plugin<br>
+                    <strong class="text-blue">3.</strong> Upload non controllato → Web shell<br>
+                    <strong class="text-blue">4.</strong> Aggiornamenti insicuri → Supply chain
                 </div>
             </div>
         </div>
@@ -45,10 +45,10 @@
         <div class="card border-yellow" style="margin-top: 20px;">
             <div class="card-title">🧠 La Mentalità dell'Attaccante</div>
             <div class="card-text">
-                Per difendersi efficacemente, bisogna pensare come un attaccante. In questo laboratorio vestiremo 
-                i panni di un <span class="tech-term">penetration tester</span> e analizzeremo ogni vulnerabilità 
-                crittografica presente nel sistema. Ogni passo sarà spiegato nel dettaglio: 
-                <strong>cosa facciamo</strong>, <strong>perché lo facciamo</strong>, e <strong>come prevenirlo</strong>.
+                Un attaccante cerca punti dove l'applicazione <strong>deserializza dati</strong> che può controllare.
+                Se trova una classe con <span class="tech-term">__wakeup()</span> o <span class="tech-term">__destruct()</span> 
+                che esegue operazioni pericolose, può creare un oggetto serializzato malevolo che eseguirà codice 
+                arbitrario quando viene deserializzato. È come consegnare un pacco bomba che esplode quando viene aperto.
             </div>
         </div>
     </div>

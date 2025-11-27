@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A06:2021 - Esercizio 1: Identificare jQuery Vulnerabile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔎 Esercizio 1: Identificare jQuery 1.7.2</h1>
+        <div class="subtitle">CVE-2011-4969 – Una vulnerabilità XSS nota da anni</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    <span class="tech-term">jQuery 1.7.2</span> contiene una vulnerabilità XSS 
+                    (<strong>CVE-2011-4969</strong>) che permette l'esecuzione di JavaScript 
+                    quando si usa <span class="tech-term">.html()</span> o <span class="tech-term">.append()</span> 
+                    con input non sanitizzato.
+                    <br><br>
+                    <strong class="text-red">La vulnerabilità ha 13+ anni</strong> ma è ancora 
+                    presente in migliaia di applicazioni!
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 Il Pattern Vulnerabile</div>
+                <div class="card-text">
+                    Codice JavaScript che usa jQuery in modo insicuro:
+                    <div class="code-box">// ❌ VULNERABILE
+$('#content').html(userInput);
+$('#content').append(userInput);
+$(userInput).appendTo('#content');
+
+// Se userInput contiene:
+// &lt;img src=x onerror="alert(1)"&gt;
+// → JavaScript viene eseguito!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 Come Identificare la Versione</div>
+            <div class="card-text">
+                <strong class="text-blue">Metodo 1 – DevTools:</strong><br>
+                Apri F12 → Network o Sources → Cerca <span class="tech-term">jquery</span> nei file caricati
+                <br><br>
+                <strong class="text-blue">Metodo 2 – Console:</strong><br>
+                <div class="code-box">// Nella console del browser (F12 → Console)
+jQuery.fn.jquery    // Output: "1.7.2"
+$.fn.jquery         // Output: "1.7.2"</div>
+                <br>
+                <strong class="text-blue">Metodo 3 – info.php:</strong><br>
+                <div class="code-box">http://localhost:8006/info.php
+# Mostra tutte le versioni dei componenti</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">📚 Risorse CVE</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-4969" style="color: #667eea;">CVE-2011-4969 su MITRE</a><br>
+                <strong>•</strong> <a href="https://nvd.nist.gov" style="color: #667eea;">NVD - National Vulnerability Database</a><br>
+                <strong>•</strong> <a href="https://www.exploit-db.com" style="color: #667eea;">Exploit-DB</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 3;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+
