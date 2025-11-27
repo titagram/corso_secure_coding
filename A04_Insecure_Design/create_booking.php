@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Inserisce la prenotazione senza controlli di business logic
     $stmt = $conn->prepare("INSERT INTO bookings (user_id, service_id, booking_date, booking_time, number_of_guests, total_price, discount_code, discount_amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
-    $stmt->bind_param("iissidssd", $user_id, $service_id, $booking_date, $booking_time, $number_of_guests, $final_price, $discount_code, $discount_amount);
+    $stmt->bind_param("iissidsd", $user_id, $service_id, $booking_date, $booking_time, $number_of_guests, $final_price, $discount_code, $discount_amount);
     
     if ($stmt->execute()) {
         $_SESSION['success'] = "Prenotazione creata con successo!";
