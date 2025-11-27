@@ -24,7 +24,7 @@ Portale e-commerce che gestisce:
 docker-compose up -d
 ```
 
-L'applicazione sarà disponibile su: `http://localhost:8007`
+L'applicazione sarà disponibile su: `http://localhost:8002`
 
 Il database MySQL sarà accessibile su: `localhost:3302`
 
@@ -176,7 +176,7 @@ $session_token = $username . '_' . date('YmdHis');
 
 1. Accedi al database MySQL:
    ```bash
-   mysql -h localhost -P 3302 -u root -prootpassword ecommerce_db
+   mysql -h localhost -P 3302 -u root -prootpassword --ssl=0 ecommerce_db
    ```
 
 2. Estrai gli hash delle password:
