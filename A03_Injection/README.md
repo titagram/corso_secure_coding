@@ -138,13 +138,13 @@ hashcat -m 0 md5_hashes.txt rockyou.txt --remove
 
 ### Tabella riepilogativa comandi hashcat
 
-| Algoritmo | Mode | Comando base | Velocità stimata |
-|-----------|------|--------------|-----------------|
-| MD5 | 0 | `hashcat -m 0 hashes.txt rockyou.txt` | Secondi |
-| SHA1 | 100 | `hashcat -m 100 hashes.txt rockyou.txt` | Minuti |
-| SHA256 | 1400 | `hashcat -m 1400 hashes.txt rockyou.txt` | Minuti |
-| NTLM | 1000 | `hashcat -m 1000 hashes.txt rockyou.txt` | Secondi |
-| bcrypt | 3200 | `hashcat -m 3200 hashes.txt rockyou.txt` | Ore/Giorni* |
+| Algoritmo | Mode | Comando base                             | Velocità stimata |
+|-----------|------|--------------|---------------------------|------------------|
+| MD5       | 0    | `hashcat -m 0 hashes.txt rockyou.txt`    | Secondi          |
+| SHA1      | 100  | `hashcat -m 100 hashes.txt rockyou.txt`  | Minuti           |
+| SHA256    | 1400 | `hashcat -m 1400 hashes.txt rockyou.txt` | Minuti           |
+| NTLM      | 1000 | `hashcat -m 1000 hashes.txt rockyou.txt` | Secondi          |
+| bcrypt    | 3200 | `hashcat -m 3200 hashes.txt rockyou.txt` | Ore/Giorni*      |
 
 \* *bcrypt è lento anche con password semplici, ma dimostra che algoritmi "forti" sono vulnerabili con password deboli*
 
