@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dump del Database</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">💾 Fase 3: Dump del Database</h1>
+        <div class="subtitle">Estrarre il tesoro – Tutti i dati in un file</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🧠 Il Ragionamento dell'Attaccante</div>
+            <div class="card-text">
+                <em>"Ho le credenziali del database. Ora devo estrarre tutto: utenti, password hashate, 
+                numeri di carte di credito, ordini... Tutto quello che ha valore."</em>
+                <br><br>
+                <span class="tech-term">mysqldump</span> è lo strumento ufficiale MySQL per creare backup completi. 
+                Ironia della sorte: lo stesso tool usato per i backup serve agli attaccanti per rubare dati.
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-bottom: 25px;">
+            <div class="card-title">⚡ Il Comando di Estrazione</div>
+            <div class="code-box">mysqldump -h localhost -P 3302 \
+         -u root -prootpassword \
+         --ssl=0 \
+         --databases ecommerce_db > ecommerce_db_dump.sql</div>
+            <div class="card-text" style="margin-top: 15px;">
+                <span class="text-red">-h localhost -P 3302</span>: Host e porta del target<br>
+                <span class="text-red">-u root -p...</span>: Credenziali ottenute con brute-force<br>
+                <span class="text-red">--ssl=0</span>: Disabilita SSL (⚠️ altra vulnerabilità!)<br>
+                <span class="text-red">--databases</span>: Esporta l'intero database
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-yellow">
+                <div class="card-title">📄 Contenuto del Dump</div>
+                <div class="code-box">-- Table: users
+INSERT INTO users VALUES
+(1, 'admin', 
+ '5f4dcc3b5aa765d61d8327deb882cf99',
+ 'admin@shop.com'),
+(2, 'mario', 
+ '482c811da5d5b4bc6d497ffa98491e38',
+ 'mario@email.it');
+
+-- Table: credit_cards
+INSERT INTO credit_cards VALUES
+(1, 1, '4532015112830366', 
+ '12/25', '123');</div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">💀 Cosa Abbiamo Ottenuto</div>
+                <div class="card-text">
+                    <strong class="text-blue">✓ Tabella users:</strong><br>
+                    Username, email e <span class="text-red">password hashate</span>
+                    <br><br>
+                    <strong class="text-blue">✓ Tabella credit_cards:</strong><br>
+                    Numeri di carta, scadenze e CVV <span class="text-red">in chiaro!</span>
+                    <br><br>
+                    <strong class="text-blue">✓ Tabella orders:</strong><br>
+                    Storico acquisti e indirizzi
+                    <br><br>
+                    <span class="text-yellow">⚠️ Dati sensibili NON cifrati = violazione GDPR!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

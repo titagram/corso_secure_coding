@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A02:2021 - Cryptographic Failures</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔓 OWASP A02:2021 – Cryptographic Failures</h1>
+        <div class="subtitle">Quando la crittografia fallisce, i segreti diventano pubblici</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">⚠️ La Minaccia</div>
+                <div class="card-text">
+                    Le <span class="tech-term">Cryptographic Failures</span> sono al secondo posto nella OWASP Top 10. 
+                    Includono: password hashate con algoritmi deboli, dati sensibili trasmessi in chiaro, 
+                    chiavi esposte e configurazioni errate.
+                    <br><br>
+                    <strong class="text-red">Conseguenze:</strong> furto di credenziali, violazione dati, 
+                    accesso non autorizzato a sistemi critici.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🎯 Il Nostro Obiettivo</div>
+                <div class="card-text">
+                    Simuleremo un attacco reale su un <span class="tech-term">e-commerce vulnerabile</span>. 
+                    Seguiremo l'intera kill-chain:
+                    <br><br>
+                    <strong class="text-blue">1.</strong> Ricognizione → <strong class="text-blue">2.</strong> Brute Force → 
+                    <strong class="text-blue">3.</strong> Dump DB → <strong class="text-blue">4.</strong> Estrazione Hash → 
+                    <strong class="text-blue">5.</strong> Cracking
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">🧠 La Mentalità dell'Attaccante</div>
+            <div class="card-text">
+                Per difendersi efficacemente, bisogna pensare come un attaccante. In questo laboratorio vestiremo 
+                i panni di un <span class="tech-term">penetration tester</span> e analizzeremo ogni vulnerabilità 
+                crittografica presente nel sistema. Ogni passo sarà spiegato nel dettaglio: 
+                <strong>cosa facciamo</strong>, <strong>perché lo facciamo</strong>, e <strong>come prevenirlo</strong>.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 1;</script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Identificazione e Cracking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">⚔️ Fase 5: Cracking degli Hash</h1>
+        <div class="subtitle">Trasformare gli hash in password in chiaro</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🧠 Il Ragionamento dell'Attaccante</div>
+            <div class="card-text">
+                <em>"Ho gli hash ma non so quale algoritmo è stato usato. Prima identifico il tipo, 
+                poi uso Hashcat con la modalità corretta. MD5 è velocissimo da crackare, bcrypt molto più lento..."</em>
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">🔍 Identificazione con hash-identifier</div>
+                <div class="code-box">$ hash-identifier
+   ╔═══════════════════════════════╗
+   ║     HASH IDENTIFIER           ║
+   ╚═══════════════════════════════╝
+
+HASH: 5f4dcc3b5aa765d61d8327deb882cf99
+
+Possible Hashs:
+[+] MD5
+[+] Domain Cached Credentials</div>
+                <div class="card-text" style="margin-top: 15px;">
+                    <span class="text-blue">Tip:</span> L'identificatore non è sempre preciso al 100%. 
+                    La lunghezza e il pattern aiutano a confermare.
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">📊 Hashcat Modes</div>
+                <div class="card-text">
+                    Ogni algoritmo ha un codice (mode) in Hashcat:
+                </div>
+                <div class="code-box"><span class="text-red">MD5</span>     → mode <span class="text-blue">0</span>      ⚡ Velocissimo
+<span class="text-yellow">SHA1</span>    → mode <span class="text-blue">100</span>    ⚡ Veloce
+<span class="text-green">SHA256</span>  → mode <span class="text-blue">1400</span>   ⚡ Veloce
+<span class="text-purple">bcrypt</span>  → mode <span class="text-blue">3200</span>   🐢 Molto lento</div>
+                <div class="card-text" style="margin-top: 15px;">
+                    <span class="text-yellow">Nota:</span> bcrypt è lento BY DESIGN per resistere al cracking!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-top: 25px;">
+            <div class="card-title">💥 Attacco con Hashcat</div>
+            <div class="code-box"># Cracking MD5 con wordlist
+hashcat -m 0 -a 0 md5_hashes.txt rockyou.txt
+
+# Risultato:
+5f4dcc3b5aa765d61d8327deb882cf99:<span class="text-green">password</span>
+482c811da5d5b4bc6d497ffa98491e38:<span class="text-green">password123</span>
+098f6bcd4621d373cade4e832627b4f6:<span class="text-green">test</span>
+
+Session..........: hashcat
+Status...........: Cracked
+Hash.Mode........: 0 (MD5)
+Speed.#1.........: <span class="text-red">15.2 GH/s</span>  ← 15 MILIARDI di tentativi/sec!</div>
+            <div class="card-text" style="margin-top: 15px;">
+                <span class="text-red">⚠️ Lezione chiave:</span> MD5/SHA1/SHA256 senza salt sono inutili per le password. 
+                Con GPU moderne, miliardi di tentativi al secondo rendono il cracking banale.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Ricognizione con Nmap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 Fase 1: Ricognizione</h1>
+        <div class="subtitle">Scoprire cosa c'è nel buio – L'arte dell'enumerazione</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🧠 Il Ragionamento dell'Attaccante</div>
+            <div class="card-text">
+                <em>"Prima di attaccare, devo capire cosa ho davanti. Quali porte sono aperte? 
+                Quali servizi girano? Che versioni usano?"</em>
+                <br><br>
+                <span class="tech-term">Nmap</span> è lo strumento principe per la ricognizione di rete. 
+                Ci permette di mappare la superficie d'attacco.
+            </div>
+        </div>
+
+        <div class="grid-3-col">
+            <div class="card border-blue">
+                <div class="card-title">1️⃣ Scan Completo</div>
+                <div class="code-box">nmap -sV -p- &lt;TARGET_IP&gt;</div>
+                <div class="card-text" style="margin-top: 15px;">
+                    <span class="text-blue">-sV</span>: Rileva versioni dei servizi<br>
+                    <span class="text-blue">-p-</span>: Scansiona TUTTE le 65535 porte
+                    <br><br>
+                    <em>Obiettivo: trovare porte non standard come 8002 e 3302</em>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">2️⃣ Scan Web Dettagliato</div>
+                <div class="code-box">nmap -sV -sC -p 8002 &lt;TARGET_IP&gt;</div>
+                <div class="card-text" style="margin-top: 15px;">
+                    <span class="text-green">-sC</span>: Esegue script NSE di default<br>
+                    <span class="text-green">-p 8002</span>: Focus sulla porta web
+                    <br><br>
+                    <em>Scopriamo: Apache/Nginx? PHP? Headers di sicurezza?</em>
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">3️⃣ Scan MySQL</div>
+                <div class="code-box">nmap -sV -p 3302 \
+  --script mysql-info,mysql-users \
+  &lt;TARGET_IP&gt;</div>
+                <div class="card-text" style="margin-top: 15px;">
+                    <span class="text-red">mysql-info</span>: Versione e capacità<br>
+                    <span class="text-red">mysql-users</span>: Enumera utenti
+                    <br><br>
+                    <em>⚠️ MySQL esposto = jackpot per l'attaccante!</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">💡 Cosa Impariamo</div>
+            <div class="card-text">
+                <strong class="text-yellow">Vulnerabilità identificata:</strong> Il database MySQL è esposto direttamente su internet (porta 3302). 
+                Questo non dovrebbe MAI accadere in produzione. Un firewall dovrebbe bloccare l'accesso esterno al DB.
+                <br><br>
+                <strong>Best Practice:</strong> Il database dovrebbe essere accessibile SOLO dall'applicazione web, mai direttamente dall'esterno.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 3;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Estrazione degli Hash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔬 Fase 4: Estrazione degli Hash</h1>
+        <div class="subtitle">Trovare gli aghi nel pagliaio – Parsing automatizzato</div>
+
+        <div class="card border-purple" style="margin-bottom: 25px;">
+            <div class="card-title">🧠 Il Ragionamento dell'Attaccante</div>
+            <div class="card-text">
+                <em>"Il dump SQL è enorme. Devo estrarre solo gli hash delle password per crackarli. 
+                Ogni algoritmo ha un pattern riconoscibile: MD5 sono 32 caratteri hex, SHA256 sono 64..."</em>
+                <br><br>
+                Usiamo <span class="tech-term">grep</span> con regex per estrarre automaticamente ogni tipo di hash.
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📜 Lo Script di Estrazione</div>
+                <div class="code-box"># MD5 (32 caratteri hex)
+grep -oE '[a-fA-F0-9]{32}' dump.sql \
+  > md5_hashes.txt
+
+# SHA1 (40 caratteri hex)
+grep -oE '[a-fA-F0-9]{40}' dump.sql \
+  > sha1_hashes.txt
+
+# SHA256 (64 caratteri hex)
+grep -oE '[a-fA-F0-9]{64}' dump.sql \
+  > sha256_hashes.txt
+
+# bcrypt (pattern $2a$, $2b$, $2y$)
+grep -oE '\$2[aby]\$[0-9]{2}\$[A-Za-z0-9./]{53}' \
+  dump.sql > bcrypt_hashes.txt</div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🔍 Pattern degli Hash</div>
+                <div class="card-text">
+                    <strong class="text-red">MD5 (32 char):</strong><br>
+                    <span class="tech-term">5f4dcc3b5aa765d61d8327deb882cf99</span>
+                    <br><br>
+                    <strong class="text-yellow">SHA1 (40 char):</strong><br>
+                    <span class="tech-term">5baa61e4c9b93f3f0682250b6cf...</span>
+                    <br><br>
+                    <strong class="text-blue">SHA256 (64 char):</strong><br>
+                    <span class="tech-term">5e884898da28047d9891ac18a3...</span>
+                    <br><br>
+                    <strong class="text-green">bcrypt:</strong><br>
+                    <span class="tech-term">$2a$10$N9qo8uLOickgx2ZMR...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 25px;">
+            <div class="card-title">📁 Script Automatico: extract_hashes.sh</div>
+            <div class="card-text">
+                Nella cartella <span class="tech-term">./strumenti/</span> trovi uno script pronto che:
+            </div>
+            <div class="code-box">./strumenti/extract_hashes.sh ecommerce_db_dump.sql
+
+[+] Estrazione MD5...     trovati: 45
+[+] Estrazione SHA1...    trovati: 12
+[+] Estrazione SHA256...  trovati: 8
+[+] Estrazione bcrypt...  trovati: 3
+[✓] Hash salvati in ./extracted_hashes/</div>
+            <div class="card-text" style="margin-top: 15px;">
+                <span class="text-green">Automazione:</span> L'attaccante non lavora manualmente. 
+                Script e tool automatizzano ogni fase dell'attacco.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 6;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

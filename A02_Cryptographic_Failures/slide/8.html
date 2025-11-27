@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Conclusioni e Remediation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Conclusioni e Remediation</h1>
+        <div class="subtitle">Da vulnerabili a sicuri – Le contromisure</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">❌ Vulnerabilità Trovate</div>
+                <div class="card-text">
+                    <strong>1. Database esposto su internet</strong><br>
+                    MySQL accessibile dalla rete pubblica
+                    <br><br>
+                    <strong>2. Password root debole</strong><br>
+                    "rootpassword" crackabile in secondi
+                    <br><br>
+                    <strong>3. Hash password con MD5</strong><br>
+                    Algoritmo obsoleto, nessun salt
+                    <br><br>
+                    <strong>4. Dati sensibili in chiaro</strong><br>
+                    Carte di credito non cifrate nel DB
+                    <br><br>
+                    <strong>5. Nessun rate limiting</strong><br>
+                    Brute-force senza limiti
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">✓ Remediation</div>
+                <div class="card-text">
+                    <strong>1. Firewall sul database</strong><br>
+                    MySQL solo su localhost/rete interna
+                    <br><br>
+                    <strong>2. Password policy rigorosa</strong><br>
+                    Minimo 16 caratteri, complessità alta
+                    <br><br>
+                    <strong>3. Usare bcrypt/Argon2</strong><br>
+                    <span class="tech-term">password_hash()</span> in PHP con <span class="tech-term">PASSWORD_BCRYPT</span>
+                    <br><br>
+                    <strong>4. Cifratura dati sensibili</strong><br>
+                    AES-256-GCM per carte di credito
+                    <br><br>
+                    <strong>5. Fail2ban + rate limiting</strong><br>
+                    Ban dopo 5 tentativi falliti
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 25px;">
+            <div class="card border-blue">
+                <div class="card-title">🔐 Codice Sicuro per Password</div>
+                <div class="code-box">// ❌ SBAGLIATO - Mai fare così!
+$hash = md5($password);
+
+// ✓ CORRETTO - Usa bcrypt
+$hash = password_hash(
+    $password, 
+    PASSWORD_BCRYPT,
+    ['cost' => 12]
+);
+
+// Verifica
+if (password_verify($input, $hash)) {
+    // Login OK
+}</div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">📚 Takeaways</div>
+                <div class="card-text">
+                    <strong class="text-yellow">1.</strong> La sicurezza è una catena: basta un anello debole
+                    <br><br>
+                    <strong class="text-yellow">2.</strong> Defense in depth: più livelli di protezione
+                    <br><br>
+                    <strong class="text-yellow">3.</strong> Gli attaccanti automatizzano tutto
+                    <br><br>
+                    <strong class="text-yellow">4.</strong> Segui le best practice OWASP
+                    <br><br>
+                    <strong class="text-yellow">5.</strong> Pensa come un attaccante per difenderti meglio
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 25px;">
+            <div class="card-title">🎓 Risorse per Approfondire</div>
+            <div class="card-text">
+                <span class="tech-term">OWASP Top 10:</span> owasp.org/Top10 | 
+                <span class="tech-term">Hashcat:</span> hashcat.net | 
+                <span class="tech-term">CrackStation:</span> crackstation.net | 
+                <span class="tech-term">Have I Been Pwned:</span> haveibeenpwned.com
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 8;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+
