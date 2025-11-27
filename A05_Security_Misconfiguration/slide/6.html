@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Esercizio 4: File di Backup Esposti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">💾 Esercizio 4: File di Backup Esposti</h1>
+        <div class="subtitle">Il dump del database a portata di click</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    I backup del database sono <strong>oro puro</strong> per un attaccante:
+                    <br><br>
+                    • <strong>Struttura completa</strong> del database<br>
+                    • <strong>Password hash</strong> da craccare offline<br>
+                    • <strong>Dati personali</strong> di tutti gli utenti<br>
+                    • <strong>Dati storici</strong> che potrebbero non essere più nel DB attivo<br>
+                    • <strong>Relazioni</strong> tra tabelle (utile per altri attacchi)
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 Perché Succede?</div>
+                <div class="card-text">
+                    Gli amministratori spesso:
+                    <br><br>
+                    • Creano backup nella <span class="tech-term">document root</span><br>
+                    • Usano nomi prevedibili (<span class="tech-term">backup.sql</span>)<br>
+                    • Dimenticano di eliminarli dopo il restore<br>
+                    • Non configurano blocchi per estensioni <span class="tech-term">.sql</span>, <span class="tech-term">.bak</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 L'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Cerca file di backup con nomi comuni:
+                <div class="code-box">http://localhost:8005/backup.sql
+http://localhost:8005/backup_2024-11-20.sql.bak
+http://localhost:8005/backups/    ← Directory listing!</div>
+                <br>
+                <strong class="text-blue">Step 2:</strong> Scarica e analizza il dump:
+                <div class="code-box">-- Dal file backup.sql
+INSERT INTO users VALUES (1, 'admin', 
+  '$2y$10$hash...', 'admin@example.com', 'admin');
+INSERT INTO users VALUES (2, 'mario.rossi', 
+  '$2y$10$hash...', 'mario@example.com', 'user');</div>
+                <br>
+                <strong class="text-blue">Step 3:</strong> Cracka gli hash offline con <span class="tech-term">hashcat</span> o <span class="tech-term">John the Ripper</span>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> Mai salvare backup nella document root<br>
+                <strong class="text-blue">2.</strong> Cifrare i backup con <span class="tech-term">openssl enc -aes-256-cbc</span><br>
+                <strong class="text-blue">3.</strong> Bloccare estensioni <span class="tech-term">.sql</span>, <span class="tech-term">.bak</span>, <span class="tech-term">.old</span> nel web server
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 6;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

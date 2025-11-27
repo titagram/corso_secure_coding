@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato e come applicarlo</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📚 Cosa Abbiamo Esplorato</div>
+                <div class="card-text">
+                    <strong class="text-blue">1. Config Files:</strong> config.php, environment.txt esposti<br><br>
+                    <strong class="text-blue">2. Directory Listing:</strong> /uploads/, /backups/, /logs/<br><br>
+                    <strong class="text-blue">3. Admin Panel:</strong> Accesso senza autenticazione<br><br>
+                    <strong class="text-blue">4. Backup Files:</strong> Dump SQL scaricabili<br><br>
+                    <strong class="text-blue">5. Debug Mode:</strong> Stack trace e path disclosure<br><br>
+                    <strong class="text-blue">6. Server Signature:</strong> Fingerprinting facilitato
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🧠 La Lezione Chiave</div>
+                <div class="card-text">
+                    <span class="tech-term">Security Misconfiguration</span> è spesso la vulnerabilità 
+                    <strong>più semplice da sfruttare</strong> e <strong>più semplice da prevenire</strong>.
+                    <br><br>
+                    Il problema: nessuno controlla le configurazioni di default.
+                    <br><br>
+                    <em>"Il 90% delle misconfigurazioni si previene con una checklist 
+                    e 10 minuti di hardening."</em>
+                    <br><br>
+                    <strong>Strumenti come Nikto e Gobuster trovano in secondi 
+                    quello che un attaccante troverebbe in minuti.</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">✅ Checklist di Sicurezza</div>
+            <div class="card-text">
+                <strong class="text-green">☐</strong> File di configurazione fuori dalla document root<br>
+                <strong class="text-green">☐</strong> Directory listing disabilitato (<span class="tech-term">Options -Indexes</span>)<br>
+                <strong class="text-green">☐</strong> Backup e log non accessibili via web<br>
+                <strong class="text-green">☐</strong> Debug mode disabilitato in produzione<br>
+                <strong class="text-green">☐</strong> Server signature nascosta (<span class="tech-term">ServerTokens Prod</span>)<br>
+                <strong class="text-green">☐</strong> Security headers configurati<br>
+                <strong class="text-green">☐</strong> Pannelli admin protetti con autenticazione<br>
+                <strong class="text-green">☐</strong> Nessuna credenziale hardcoded nel codice<br>
+                <strong class="text-green">☐</strong> Scansione periodica con Nikto/Nmap
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📖 Riferimenti OWASP</div>
+            <div class="card-text">
+                <strong>•</strong> <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/" style="color: #667eea;">OWASP Top 10 2021 - A05 Security Misconfiguration</a><br><br>
+                <strong>•</strong> <a href="https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html" style="color: #667eea;">OWASP HTTP Security Headers Cheat Sheet</a><br><br>
+                <strong>•</strong> <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cheat_Sheets.html" style="color: #667eea;">OWASP Secure Configuration Guide</a>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 12;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

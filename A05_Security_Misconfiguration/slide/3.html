@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Esercizio 1: File di Configurazione Esposti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📄 Esercizio 1: File di Configurazione Esposti</h1>
+        <div class="subtitle">Quando i segreti sono a portata di URL</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    Molti sviluppatori lasciano file di configurazione nella <span class="tech-term">document root</span> 
+                    del web server. Questi file contengono:
+                    <br><br>
+                    • <strong>Credenziali database</strong> (user, password, host)<br>
+                    • <strong>API Keys</strong> e Secret Keys<br>
+                    • <strong>Password admin</strong> hardcoded<br>
+                    • <strong>Chiavi di cifratura</strong>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 Perché Funziona?</div>
+                <div class="card-text">
+                    Il file <span class="tech-term">config.php</span> dovrebbe essere eseguito da PHP, 
+                    non scaricato. Ma se:
+                    <br><br>
+                    • Il file ha estensione <span class="tech-term">.txt</span>, <span class="tech-term">.bak</span>, <span class="tech-term">.old</span><br>
+                    • PHP non è configurato correttamente<br>
+                    • Il file è in una directory senza handler PHP<br>
+                    <br>
+                    ...il contenuto viene servito <strong>in chiaro</strong>!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 L'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Accedi direttamente al file di configurazione:
+                <div class="code-box">http://localhost:8005/config.php
+http://localhost:8005/environment.txt</div>
+                <br>
+                <strong class="text-blue">Step 2:</strong> Estrai le credenziali trovate:
+                <div class="code-box">define('DB_HOST', 'db');
+define('DB_USER', 'root');
+define('DB_PASS', 'rootpassword');
+define('ADMIN_PASSWORD', 'admin123');
+define('API_KEY', 'sk_live_1234567890abcdefghijklmnop');
+define('SECRET_KEY', 'my_super_secret_key_12345');</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> Sposta i file di config <strong>fuori dalla document root</strong><br>
+                <strong class="text-blue">2.</strong> Usa <strong>variabili d'ambiente</strong> invece di file<br>
+                <strong class="text-blue">3.</strong> Blocca l'accesso con <span class="tech-term">.htaccess</span> o configurazione Apache
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 3;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

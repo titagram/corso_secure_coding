@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Esercizio 5: Log Files e Debug Mode</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📋 Esercizio 5: Log Files e Debug Mode</h1>
+        <div class="subtitle">Informazioni preziose nascoste nei log e negli errori</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📄 Log Files Esposti</div>
+                <div class="card-text">
+                    I file di log possono contenere:
+                    <br><br>
+                    • <strong>Query SQL</strong> con parametri sensibili<br>
+                    • <strong>Stack trace</strong> completi<br>
+                    • <strong>Path del filesystem</strong><br>
+                    • <strong>IP e sessioni</strong> degli utenti<br>
+                    • <strong>Errori</strong> che rivelano la logica interna
+                    <div class="code-box">http://localhost:8005/logs/app.log</div>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🐛 Debug Mode Attivo</div>
+                <div class="card-text">
+                    Configurazione vulnerabile in <span class="tech-term">config.php</span>:
+                    <div class="code-box">// ❌ VULNERABILE
+define('DEBUG_MODE', true);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);</div>
+                    <br>
+                    Ogni errore PHP mostra:
+                    <br>
+                    • Path completi dei file<br>
+                    • Nomi di funzioni e classi<br>
+                    • Parametri passati
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 L'Attacco</div>
+            <div class="card-text">
+                <strong class="text-blue">Step 1:</strong> Accedi ai log:
+                <div class="code-box">http://localhost:8005/logs/app.log</div>
+                <br>
+                <strong class="text-blue">Step 2:</strong> Genera un errore per vedere il debug output. Inserisci caratteri speciali in un form 
+                o accedi a una pagina inesistente.
+                <br><br>
+                <strong class="text-blue">Step 3:</strong> Analizza lo stack trace esposto:
+                <div class="code-box">Fatal error: Uncaught PDOException: SQLSTATE[42000]
+in /var/www/html/db_connect.php on line 15
+
+Stack trace:
+#0 /var/www/html/login_process.php(23): PDO->query()
+#1 {main}</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> <span class="tech-term">display_errors = Off</span> in produzione<br>
+                <strong class="text-blue">2.</strong> Logga gli errori su file, non mostrarli: <span class="tech-term">log_errors = On</span><br>
+                <strong class="text-blue">3.</strong> Sposta i log fuori dalla document root
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

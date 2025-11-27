@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - La Superficie d'Attacco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 La Superficie d'Attacco</h1>
+        <div class="subtitle">Cosa cerchiamo in un sistema mal configurato</div>
+
+        <div class="grid-3-col">
+            <div class="card border-red">
+                <div class="card-title">📄 File Sensibili</div>
+                <div class="card-text">
+                    <span class="tech-term">config.php</span><br>
+                    <span class="tech-term">.env</span><br>
+                    <span class="tech-term">environment.txt</span><br>
+                    <span class="tech-term">backup.sql</span><br>
+                    <span class="tech-term">*.bak</span>
+                    <br><br>
+                    Credenziali, API keys, dump del database.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">📁 Directory Esposte</div>
+                <div class="card-text">
+                    <span class="tech-term">/uploads/</span><br>
+                    <span class="tech-term">/backups/</span><br>
+                    <span class="tech-term">/logs/</span><br>
+                    <span class="tech-term">/admin/</span><br>
+                    <span class="tech-term">/temp/</span>
+                    <br><br>
+                    Directory listing = enumerazione completa.
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔧 Configurazioni</div>
+                <div class="card-text">
+                    <span class="tech-term">Debug mode ON</span><br>
+                    <span class="tech-term">display_errors = 1</span><br>
+                    <span class="tech-term">ServerSignature On</span><br>
+                    <span class="tech-term">Headers mancanti</span>
+                    <br><br>
+                    Stack trace, versioni, path disclosure.
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 25px;">
+            <div class="card-title">🌐 Target dell'Attacco</div>
+            <div class="card-text">
+                L'applicazione vulnerabile è disponibile all'indirizzo:
+                <div class="code-box">http://localhost:8005</div>
+                <br>
+                <strong class="text-green">Database:</strong> MySQL su porta <span class="tech-term">3305</span> 
+                (user: <span class="tech-term">root</span>, password: <span class="tech-term">rootpassword</span>)
+                <br><br>
+                <strong class="text-green">Account di test:</strong> 
+                admin/admin123, mario.rossi/alice123, luisa.verdi/manager123
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

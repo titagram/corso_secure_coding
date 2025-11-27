@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Strumenti di Automazione (Parte 1)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Strumenti di Automazione (Parte 1)</h1>
+        <div class="subtitle">WhatWeb e Nikto – Fingerprinting e Vulnerability Scanning</div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">🌐 WhatWeb</div>
+                <div class="card-text">
+                    <strong>Scopo:</strong> Identificare tecnologie utilizzate dal sito
+                    <div class="code-box">whatweb http://localhost:8005</div>
+                    <br>
+                    <strong>Cosa trova:</strong><br>
+                    • Versione di Apache e PHP<br>
+                    • Framework utilizzati<br>
+                    • CMS (WordPress, Joomla, etc.)<br>
+                    • Cookies e headers<br>
+                    • Moduli del server
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔍 Nikto</div>
+                <div class="card-text">
+                    <strong>Scopo:</strong> Scanner web che cerca migliaia di vulnerabilità note
+                    <div class="code-box">nikto -h http://localhost:8005</div>
+                    <br>
+                    <strong>Cosa trova:</strong><br>
+                    • Directory listing abilitato<br>
+                    • File di backup esposti<br>
+                    • Configurazioni errate<br>
+                    • Headers mancanti<br>
+                    • Server signature esposta
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">📊 Output Tipico di Nikto</div>
+            <div class="card-text">
+                <div class="code-box">+ Server: Apache/2.4.54 (Debian)
++ The X-XSS-Protection header is not defined
++ The X-Content-Type-Options header is not set
++ Directory indexing found: /uploads/
++ Directory indexing found: /backups/
++ OSVDB-3092: /config.php: Configuration file found
++ OSVDB-3092: /backup.sql: Database backup found
++ /admin/: Admin panel found without authentication</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">💡 Consiglio per l'Attaccante</div>
+            <div class="card-text">
+                Inizia <strong>sempre</strong> con questi strumenti automatici. Ti danno una visione completa della 
+                superficie d'attacco in pochi secondi. Poi approfondisci manualmente i finding più interessanti.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 9;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

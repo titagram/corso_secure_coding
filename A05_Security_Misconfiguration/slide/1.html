@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>OWASP A02:2021 - Cryptographic Failures</title>
+    <title>OWASP A05:2021 - Security Misconfiguration</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,31 +13,31 @@
     </div>
 
     <div class="container">
-        <h1 class="title">🔓 OWASP A02:2021 – Cryptographic Failures</h1>
-        <div class="subtitle">Quando la crittografia fallisce, i segreti diventano pubblici</div>
+        <h1 class="title">⚙️ OWASP A05:2021 – Security Misconfiguration</h1>
+        <div class="subtitle">Quando le configurazioni di default diventano il punto debole</div>
 
         <div class="grid-2-col">
             <div class="card border-red">
                 <div class="card-title">⚠️ La Minaccia</div>
                 <div class="card-text">
-                    Le <span class="tech-term">Cryptographic Failures</span> sono al secondo posto nella OWASP Top 10. 
-                    Includono: password hashate con algoritmi deboli, dati sensibili trasmessi in chiaro, 
-                    chiavi esposte e configurazioni errate.
+                    La <span class="tech-term">Security Misconfiguration</span> è al quinto posto nella OWASP Top 10.
+                    È una delle vulnerabilità più comuni: server configurati male, file sensibili esposti, 
+                    debug mode attivo in produzione, directory listing abilitato.
                     <br><br>
-                    <strong class="text-red">Conseguenze:</strong> furto di credenziali, violazione dati, 
-                    accesso non autorizzato a sistemi critici.
+                    <strong class="text-red">Conseguenze:</strong> accesso a credenziali, dump del database,
+                    informazioni sensibili esposte, takeover completo del sistema.
                 </div>
             </div>
 
             <div class="card border-blue">
                 <div class="card-title">🎯 Il Nostro Obiettivo</div>
                 <div class="card-text">
-                    Simuleremo un attacco reale su un <span class="tech-term">e-commerce vulnerabile</span>. 
-                    Seguiremo l'intera kill-chain:
+                    Attaccheremo un <span class="tech-term">sistema di gestione documentale</span> mal configurato.
+                    Esploreremo ogni falla di configurazione:
                     <br><br>
-                    <strong class="text-blue">1.</strong> Ricognizione → <strong class="text-blue">2.</strong> Brute Force → 
-                    <strong class="text-blue">3.</strong> Dump DB → <strong class="text-blue">4.</strong> Estrazione Hash → 
-                    <strong class="text-blue">5.</strong> Cracking
+                    <strong class="text-blue">1.</strong> Config Files → <strong class="text-blue">2.</strong> Directory Listing → 
+                    <strong class="text-blue">3.</strong> Admin Panel → <strong class="text-blue">4.</strong> Backup/Logs → 
+                    <strong class="text-blue">5.</strong> Debug Info
                 </div>
             </div>
         </div>
@@ -45,10 +45,11 @@
         <div class="card border-yellow" style="margin-top: 20px;">
             <div class="card-title">🧠 La Mentalità dell'Attaccante</div>
             <div class="card-text">
-                Per difendersi efficacemente, bisogna pensare come un attaccante. In questo laboratorio vestiremo 
-                i panni di un <span class="tech-term">penetration tester</span> e analizzeremo ogni vulnerabilità 
-                crittografica presente nel sistema. Ogni passo sarà spiegato nel dettaglio: 
-                <strong>cosa facciamo</strong>, <strong>perché lo facciamo</strong>, e <strong>come prevenirlo</strong>.
+                Un attaccante non cerca solo bug nel codice: cerca <strong>configurazioni lasciate di default</strong>,
+                <strong>file dimenticati</strong>, <strong>directory esposte</strong>. Si chiede: 
+                <em>"Cosa hanno lasciato accessibile per errore?"</em>, <em>"Quali file di backup posso trovare?"</em>.
+                In questo laboratorio useremo tecniche di <span class="tech-term">enumeration</span> e strumenti 
+                come <span class="tech-term">Nikto</span>, <span class="tech-term">Gobuster</span> e <span class="tech-term">Nmap</span>.
             </div>
         </div>
     </div>

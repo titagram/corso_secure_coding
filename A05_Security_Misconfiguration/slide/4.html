@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Esercizio 2: Directory Listing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📁 Esercizio 2: Directory Listing Abilitato</h1>
+        <div class="subtitle">Quando Apache ti mostra tutto il contenuto delle cartelle</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🎯 L'Obiettivo dell'Attaccante</div>
+                <div class="card-text">
+                    Se una directory non ha un file <span class="tech-term">index.php</span> o <span class="tech-term">index.html</span>,
+                    e il <span class="tech-term">Directory Listing</span> è abilitato, Apache mostra l'elenco completo dei file.
+                    <br><br>
+                    <strong>Cosa possiamo trovare?</strong><br>
+                    • File di backup dimenticati<br>
+                    • Log con informazioni sensibili<br>
+                    • Upload degli utenti<br>
+                    • File di configurazione
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🤔 La Configurazione Vulnerabile</div>
+                <div class="card-text">
+                    Nel file <span class="tech-term">httpd.conf</span>:
+                    <div class="code-box"># ❌ VULNERABILE
+Options Indexes FollowSymLinks
+
+# Indexes = mostra il contenuto
+# delle directory senza index file</div>
+                    <br>
+                    Dovrebbe essere:
+                    <div class="code-box"># ✅ CORRETTO
+Options -Indexes +FollowSymLinks</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">📝 L'Attacco</div>
+            <div class="card-text">
+                Naviga direttamente alle directory sensibili e osserva l'elenco completo dei file:
+                <div class="code-box">http://localhost:8005/uploads/   → File caricati dagli utenti
+http://localhost:8005/backups/   → Dump SQL del database!
+http://localhost:8005/logs/      → Log applicativi con info sensibili
+http://localhost:8005/admin/     → Pannello admin e file nascosti</div>
+                <br>
+                <strong class="text-red">Risultato:</strong> Puoi vedere e scaricare <em>ogni singolo file</em> in queste directory!
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛡️ Lezione per il Difensore</div>
+            <div class="card-text">
+                <strong class="text-blue">1.</strong> <span class="tech-term">Options -Indexes</span> nella configurazione Apache<br>
+                <strong class="text-blue">2.</strong> Aggiungi un <span class="tech-term">index.php</span> vuoto che ritorna 403 Forbidden<br>
+                <strong class="text-blue">3.</strong> Sposta directory sensibili fuori dalla document root
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 4;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

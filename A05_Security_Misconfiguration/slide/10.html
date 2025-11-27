@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP A05:2021 - Strumenti di Automazione (Parte 2)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔧 Strumenti di Automazione (Parte 2)</h1>
+        <div class="subtitle">Gobuster e Nmap NSE – Directory Bruteforce e Script Scanning</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📂 Gobuster</div>
+                <div class="card-text">
+                    <strong>Scopo:</strong> Brute-force di directory e file nascosti
+                    <div class="code-box">gobuster dir \
+  -u http://localhost:8005 \
+  -w /usr/share/wordlists/dirb/common.txt \
+  -x php,txt,sql,bak,log</div>
+                    <br>
+                    <strong>Flag utili:</strong><br>
+                    • <span class="tech-term">-x</span> estensioni da cercare<br>
+                    • <span class="tech-term">-t 50</span> thread paralleli<br>
+                    • <span class="tech-term">-o results.txt</span> output su file
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🗺️ Nmap NSE</div>
+                <div class="card-text">
+                    <strong>Scopo:</strong> Script specializzati per enumeration HTTP
+                    <div class="code-box"># Enumeration generale
+nmap -p 8005 --script http-enum localhost
+
+# Headers e server info
+nmap -p 8005 --script http-headers localhost
+
+# Cerca backup e config
+nmap -p 8005 --script http-config-backup localhost</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 25px;">
+            <div class="card-title">🎯 Workflow Completo dell'Attaccante</div>
+            <div class="card-text">
+                <div class="code-box"># 1. Fingerprinting
+whatweb http://localhost:8005
+
+# 2. Vulnerability scan
+nikto -h http://localhost:8005 -o nikto_results.txt
+
+# 3. Directory bruteforce
+gobuster dir -u http://localhost:8005 \
+  -w /usr/share/wordlists/dirb/common.txt \
+  -x php,txt,sql,bak,log -o gobuster_results.txt
+
+# 4. Nmap enumeration
+nmap -p 8005 --script http-enum,http-config-backup localhost
+
+# 5. Sfruttamento manuale nel browser</div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">📦 Installazione (Kali Linux)</div>
+            <div class="card-text">
+                <div class="code-box">sudo apt update && sudo apt install whatweb nikto gobuster nmap</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+
