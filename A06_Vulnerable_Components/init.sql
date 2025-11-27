@@ -68,7 +68,7 @@ INSERT INTO posts (user_id, title, content, excerpt, status) VALUES
 INSERT INTO comments (post_id, user_id, author_name, author_email, content) VALUES
 (1, NULL, 'Test User', 'test@test.com', 'Ottimo articolo!'),
 (1, NULL, 'Hacker', 'hacker@test.com', '<img src=x onerror="alert(\'XSS con jQuery 1.7.2!\')">'),
-(1, NULL, 'Security Researcher', 'security@test.com', '<script>alert("XSS Test")</script>');
+(1, NULL, 'Security Researcher', 'security@test.com', 'prova tu');
 
 -- Messaggio di conferma
 SELECT 'Database blog_system inizializzato con successo!' AS status;
