@@ -1,0 +1,176 @@
+analizza questo tentativo di spoofing ricevuto da un mio cliente. Riceve una mail da "mg.groupe@rnonaco.cam" ma il suo fornitore ha mail "mg.groupe@monaco.mc". Ti allego mail di quello che mi hanno detto: Buonasera Gabriele, nell’attesa di vederci questo venerdì per la nuova lezione, volevamo porre alla tua attenzione una segnalazione di spoofing subita da un nostro cliente, che risulta simile a varie altre segnalazioni ricevute, oltre che accadute a noi direttamente, per chiederti se fosse possibile analizzare assieme durante il corso, per capire come poter intervenire e cosa poter rispondere ai nostri clienti. Il cliente ci ha poi ricostruito la cronologia della conversazione: 1) arrivo della mail dal cliente del nostro cliente CORRETTA, da mg.groupe@monaco.mc a cui non ha risposto, in data 20/11 alle 11.11; 2) arrivo della mail dal cliente del nostro cliente MODIFICATA da mg.groupe@rnonaco.cam alla quale ha risposto perchè si configurava come messaggio di sollecito alla risposta della prima mail in data 20/11 alle 13.27; 3) il nostro cliente manda la risposta dalla sua casella r.chiari@nuovokolor.com alla mail MODIFICAta mg.groupe@rnonaco.cam, ma al suo cliente arriva la mail MODIFICATA r.chiari@nvovokolor.com con richiesta di pagamento anticipato del 40% della fornitura su banca estera, in data 20/11 alle 13.44 NB: L'inoltro di una mail con dominio MODIFICATO @nvovokolor.com è accaduto anche a Febbraio su un’altra casella del nostro cliente. Grazie, saluti. Firma---GABRIELE-DEVINCENZI.png Le informazioni contenute nella presente comunicazione e i relativi allegati possono essere riservate e sono, comunque, destinate esclusivamente alle persone o alla Società sopraindicati. La diffusione, distribuzione e/o copiatura del documento trasmesso da parte di qualsiasi soggetto diverso dal destinatario è proibita, sia ai sensi dell’art. 616 c.p. , che ai sensi del Regolamento UE 2016/679 in materia di protezione di dati personali. Se avete ricevuto questo messaggio per errore, vi preghiamo di distruggerlo e di informarci immediatamente. The information in this message is confidential and may also be legally privileged. It is intended for the addressee only. Access to this message by anyone else is unauthorised. It is not to be relied upon by any person other than the addressee except with our prior written approval. If no such approval is given, we will not accept any liability (in negligence or otherwise) arising from any third party acting, or refraining from acting on such information. Unauthorised recipients are required to maintain confidentiality. If you have received this message in error please notify us immediately and destroy any copies. Any use, dissemination, forwarding, printing or copying of this message is prohibited. Copyright in this message and any document created by us will be and remain vested in us and will not be transferred to you. We assert the right to be identified as the author of and to object to any misuses of the contents of this fax or such documents. > Inizio messaggio inoltrato: > > Da: RICCARDO CHIARI <r.chiari@nuovokolor.com> > Oggetto: info > Data: 24 novembre 2025 alle ore 10:49:04 CET > A: Giuliano Losi - Athenae Noctua Software <giuliano.losi@an-soft.it>, Gabriele <gabriele.devincenzi@an-soft.it> > > Buongiorno Giuliano/Gabriele, > > Vi chiedo una cortesia, potreste fare un check sui nostri indirizzi di posta? > > Come lo scorso Febbraio abbiamo nostato un'attività di spoofing. > > Dopo uno scambio di mail con il nostro cliente abbiamo ricevuto una mail a cui abbiamo risposto e che si è intromessa nello scambio di posta chiedendo al nostro cliente pagamenti non concordati. > > @nvovokolor.com (anzichè nuovokolor.com) > > @rnonaco.cam (anzichè @monaco.mc) > > @sbinternationaltrading.cam (anzichè @sbinternationaltrading.cam) > > Devo far controllare la posta anche al cliente? > > Attenbo Vs. Verifiche. > > Buona giornata > > Riccardo > -- > NUOVO KOLOR SRL > Riccardo Chiari > T.0375 - 781125 > F.0375 - 780172
+
+
+E
+# 🔍 COSA STA SUCCEDENDO DAVVERO
+
+L’attaccante crea **domini quasi identici** a quelli legittimi, sfruttando *typosquatting* + confusione visiva delle lettere:
+
+* `monaco.mc` → **rnonaco.cam** (la “m” viene spezzata in “rn”, dominio `.cam`)
+* `nuovokolor.com` → **nvovokolor.com** (manca la “u”)
+* `sbinternationaltrading.cam` → **sbinternationaltrading.cam** (qui è identico → *indizio fortissimo* di compromissione della casella!)
+
+Questa tecnica serve per inserirsi in mezzo alle conversazioni e manipolare i pagamenti → **classico scenario BEC / invoice fraud**.
+
+---
+
+# 🧠 PUNTO CRUCIALE
+
+**Questo NON è semplice spoofing.**
+Spoofing = falsifico mittente.
+Qui invece c’è:
+
+### 1️⃣ Typosquatting
+
+Registrazione di domini simili, con TLD diversi (.cam invece di .mc) per convincere le vittime.
+
+### 2️⃣ Reply-chain hijacking
+
+L’attaccante *entra nella conversazione in corso* imitando entrambe le parti.
+Questo *non è possibile* con il solo spoofing: serve almeno una delle due cose:
+
+* **Compromissione effettiva della casella** di qualcuno (la più probabile).
+* **Regole di inoltro malevole** (Microsoft 365/Google Workspace), che girano copia delle mail al criminale.
+* **Accesso all’account tramite password trapelate** (leaks).
+
+---
+
+# 🧩 ANALISI DELLA SEQUENZA (ciò che tradisce il criminale)
+
+## 🔸 1) Email originale corretta
+
+`mg.groupe@monaco.mc` → tutto ok.
+
+## 🔸 2) Email falsa “di sollecito”
+
+`mg.groupe@rnonaco.cam`
+→ L’attaccante intercetta la conversazione (non può inventarsi il contenuto di una mail ricevuta prima, a meno che non la veda).
+
+## 🔸 3) Il tuo cliente risponde…
+
+…e l’attaccante:
+
+* modifica il dominio del tuo cliente in `@nvovokolor.com`
+* invia al vero cliente una richiesta di pagamento su banca estera
+
+💡 **Se il vero cliente ha ricevuto una mail falsa da “nvovokolor.com” allora il criminale era in possesso della conversazione completa**, cosa impossibile senza vedere le mail *su almeno uno dei due account*.
+
+---
+
+# 🚨 DUNQUE: COSA È COMPROMESSO?
+
+Molto probabilmente una di queste:
+
+### ✓ Casella del tuo cliente nuovokolor.com
+
+(sintomo: stesso tipo di attacco già avvenuto a febbraio → pattern identico)
+
+### ✓ Casella del cliente esterno (monaco.mc)
+
+(es. password debole, device infetto, forward rule impostata)
+
+### ✓ Regole di inoltro malevole
+
+Spesso i criminali impostano:
+
+```
+Forward all mail to attacker@example.com
+```
+
+senza che nessuno lo noti.
+
+### ✓ Crittografia SPF/DKIM/DMARC assente o mal configurata
+
+⇒ permette spoofing più semplice.
+
+---
+
+# 🧪 COSA VERIFICARE SUBITO (checklist operativa)
+
+## 🔥 1. Analizzare i “Message Headers” delle mail truffaldine
+
+Cosa cercare:
+
+* SPF fail / softfail
+* DKIM mancante
+* DMARC none
+* Received-from sospetti
+* IP non compatibili con i server reali
+
+Lo fai in 30 secondi qui:
+[https://mxtoolbox.com/EmailHeaders.aspx](https://mxtoolbox.com/EmailHeaders.aspx)
+
+---
+
+## 🔥 2. Verificare *subito* i due account coinvolti
+
+### Su **Microsoft 365 / Google Workspace**:
+
+* Accessi recenti
+* Regole di inoltro
+* App con accesso OAuth sospette
+* Sessioni attive da Paesi anomali
+* Password troppo vecchie
+
+---
+
+## 🔥 3. Controllare se i domini falsi sono stati registrati di recente
+
+```bash
+whois rnonaco.cam
+whois nvovokolor.com
+```
+
+Se registrati da pochi giorni → conferma BEC.
+
+---
+
+## 🔥 4. Impostare SPF + DKIM + DMARC correttamente
+
+Almeno queste policy minime:
+
+**SPF**
+
+```
+v=spf1 include:spf.protection.outlook.com -all
+```
+
+**DMARC**
+
+```
+v=DMARC1; p=quarantine; rua=mailto:dmarc@tuodominio.com
+```
+
+**DKIM**
+Attivazione obbligatoria se Usano M365 o Google.
+
+---
+
+# 🧨 COSA DIRE AL CLIENTE (risposta professionale pronta)
+
+Puoi mandarla così com’è:
+
+---
+
+**Gentile Cliente,
+abbiamo analizzato la dinamica dell’accaduto e non si tratta di semplice “spoofing” ma di un attacco più strutturato noto come Business Email Compromise (BEC).**
+
+L’attaccante:
+
+* ha registrato domini molto simili ai vostri e a quello del vostro cliente (typosquatting);
+* si è inserito nella conversazione replicando entrambi i mittenti;
+* ha inviato richieste di pagamento fraudolente.
+
+Tale comportamento è possibile **solo se l’attaccante ha accesso alla corrispondenza di almeno uno degli account coinvolti** oppure se è presente una regola di inoltro non autorizzata.
+
+Per proteggervi proponiamo di effettuare immediatamente:
+
+* verifica completa degli accessi alle caselle coinvolte;
+* controllo di eventuali regole di inoltro sospette;
+* revisione SPF/DKIM/DMARC;
+* verifica delle password e abilitazione MFA;
+* scansione dei PC coinvolti.
+
+L’episodio richiede un controllo tecnico approfondito, che siamo disponibili ad eseguire in modo prioritario.
+
+-

@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($file['tmp_name'], $file_path)) {
             $stmt = $conn->prepare("INSERT INTO documents (user_id, filename, original_filename, file_path, file_size, file_type, description, is_private) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $relative_path = '/uploads/' . $filename;
-            $stmt->bind_param("isssisssi", $user_id, $filename, $original_filename, $relative_path, $file_size, $file_type, $description, $is_private);
+            $stmt->bind_param("isssissi", $user_id, $filename, $original_filename, $relative_path, $file_size, $file_type, $description, $is_private);
             
             if ($stmt->execute()) {
                 $_SESSION['success'] = "Documento caricato con successo!";
@@ -103,4 +103,3 @@ require_once 'header.php';
 <?php
 require_once 'footer.php';
 ?>
-
