@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Anatomia di un'Email</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📧 Anatomia di un'Email</h1>
+        <div class="subtitle">Perché il protocollo SMTP è intrinsecamente vulnerabile</div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">📋 Componenti Fondamentali</div>
+                <div class="card-text">
+                    <span class="tech-term">Envelope From (MAIL FROM)</span><br>
+                    Usato da SMTP per il trasporto – invisibile all'utente
+                    <br><br>
+                    <span class="tech-term">Header From</span><br>
+                    Quello che l'utente vede come mittente – <strong class="text-red">falsificabile!</strong>
+                    <br><br>
+                    <span class="tech-term">Return-Path</span><br>
+                    Dove tornano i bounce
+                    <br><br>
+                    <span class="tech-term">Received</span><br>
+                    Catena di server attraversati
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔐 Meccanismi di Autenticazione</div>
+                <div class="card-text">
+                    <span class="tech-term">SPF</span> (Sender Policy Framework)<br>
+                    Verifica che l'IP mittente sia autorizzato
+                    <br><br>
+                    <span class="tech-term">DKIM</span> (DomainKeys Identified Mail)<br>
+                    Firma crittografica del contenuto
+                    <br><br>
+                    <span class="tech-term">DMARC</span> (Domain-based Message Auth.)<br>
+                    Policy che dice cosa fare se SPF/DKIM falliscono
+                    <br><br>
+                    <span class="tech-term">Message-ID</span><br>
+                    Identificativo univoco della mail
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-top: 25px;">
+            <div class="card-title">⚠️ Perché È Vulnerabile</div>
+            <div class="card-text">
+                Il protocollo <span class="tech-term">SMTP</span> (1982) <strong>non verifica di default l'identità del mittente</strong>:
+                <br><br>
+                <strong class="text-red">→</strong> È possibile inviare email con "From:" arbitrario<br>
+                <strong class="text-red">→</strong> È possibile creare domini simili ai legittimi<br>
+                <strong class="text-red">→</strong> È possibile inserirsi in conversazioni intercettando le mail<br>
+                <strong class="text-red">→</strong> Il 62% delle aziende italiane non ha DMARC configurato correttamente (AgID 2025)
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 2;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

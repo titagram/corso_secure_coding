@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Thread Hijacking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🧵 Reply-Chain Hijacking</h1>
+        <div class="subtitle">Come l'attaccante si inserisce nelle conversazioni</div>
+
+        <div class="card border-red" style="margin-bottom: 25px;">
+            <div class="card-title">🤔 La Domanda Chiave</div>
+            <div class="card-text">
+                <strong>Come fa l'attaccante a conoscere il contenuto della conversazione?</strong>
+                <br><br>
+                Non può inventarsi i dettagli dell'ordine, i nomi, le date. Deve <em>vedere</em> le email reali.
+                <br><br>
+                <strong class="text-red">Questo significa che almeno una casella è compromessa</strong> 
+                (o ha una regola di inoltro malevola).
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-yellow">
+                <div class="card-title">📬 Come Funziona Tecnicamente</div>
+                <div class="card-text">
+                    L'attaccante:
+                    <br><br>
+                    <strong>1.</strong> Accede a una casella (password leak, phishing, malware)<br><br>
+                    <strong>2.</strong> Legge le conversazioni in corso<br><br>
+                    <strong>3.</strong> Replica esattamente:
+                    <div class="code-box">Subject: Re: [stesso oggetto]
+In-Reply-To: [message-id originale]
+References: [thread originale]</div>
+                    <strong>4.</strong> Il client di posta lo mostra nello stesso thread!
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔓 Vettori di Accesso</div>
+                <div class="card-text">
+                    <strong class="text-blue">Password trapelate</strong><br>
+                    Verifica su <span class="tech-term">haveibeenpwned.com</span>
+                    <br><br>
+                    <strong class="text-blue">Regole di inoltro</strong><br>
+                    <span class="tech-term">Forward all → attacker@evil.com</span>
+                    <br><br>
+                    <strong class="text-blue">App OAuth malevole</strong><br>
+                    "Clicca qui per vedere il documento"
+                    <br><br>
+                    <strong class="text-blue">Malware/Keylogger</strong><br>
+                    Sul PC dell'utente
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">💡 Indizio Cruciale</div>
+            <div class="card-text">
+                Lo <strong>stesso pattern di attacco</strong> è avvenuto a Febbraio su un'altra casella dello stesso cliente.
+                → <strong>Compromissione sistemica</strong> o password riutilizzate.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 5;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

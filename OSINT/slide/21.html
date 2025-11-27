@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Template Risposta Cliente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📝 Template di Risposta al Cliente</h1>
+        <div class="subtitle">Comunicazioni professionali pronte all'uso</div>
+
+        <div class="card border-blue" style="margin-bottom: 25px;">
+            <div class="card-title">📧 Risposta Tecnica al Cliente (Post-Incidente)</div>
+            <div class="card-text">
+                <div class="code-box">Gentile Cliente,
+
+abbiamo analizzato la dinamica dell'accaduto e non si tratta di 
+semplice "spoofing" ma di un attacco più strutturato noto come 
+Business Email Compromise (BEC).
+
+L'attaccante:
+• ha registrato domini molto simili ai vostri e a quello del 
+  vostro fornitore (typosquatting);
+• si è inserito nella conversazione replicando entrambi i mittenti;
+• ha inviato richieste di pagamento fraudolente.
+
+Tale comportamento è possibile SOLO se l'attaccante ha accesso 
+alla corrispondenza di almeno uno degli account coinvolti oppure 
+se è presente una regola di inoltro non autorizzata.
+
+Per proteggervi proponiamo di effettuare immediatamente:
+• verifica completa degli accessi alle caselle coinvolte;
+• controllo di eventuali regole di inoltro sospette;
+• revisione SPF/DKIM/DMARC;
+• verifica delle password e abilitazione MFA;
+• scansione dei PC coinvolti.
+
+Restiamo a disposizione per un controllo tecnico approfondito.
+
+Cordiali saluti</div>
+            </div>
+        </div>
+
+        <div class="card border-green">
+            <div class="card-title">💳 Disclaimer per Pagamenti (Da Inserire in Firma)</div>
+            <div class="card-text">
+                <div class="code-box">⚠️ ATTENZIONE FRODI ⚠️
+
+La nostra azienda non modifica MAI le coordinate bancarie via email.
+Per qualsiasi variazione IBAN o richiesta di pagamento anticipato, 
+vi preghiamo di contattarci telefonicamente al numero [TELEFONO] 
+per verifica vocale.
+
+Diffidate di email che richiedono pagamenti urgenti o modifiche 
+ai nostri dati bancari.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 21;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Zona Grigia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">⚖️ Zona Grigia – Confini Legali</h1>
+        <div class="subtitle">Cosa puoi fare e cosa NON puoi fare</div>
+
+        <div class="grid-2-col">
+            <div class="card border-green">
+                <div class="card-title">✅ Attività CONSENTITE (sempre)</div>
+                <div class="card-text">
+                    <strong>Analisi passiva / OSINT pubblico:</strong>
+                    <br><br>
+                    • Query DNS (dig, nslookup)<br><br>
+                    • Whois lookup<br><br>
+                    • Verifica SPF/DKIM/DMARC<br><br>
+                    • Analisi header email<br><br>
+                    • Ricerca su threat feed pubblici<br><br>
+                    • Verifica leak su HIBP<br><br>
+                    • Scansione porte su sistemi PROPRI<br><br>
+                    • Passive DNS reconnaissance
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">❌ Attività NON CONSENTITE</div>
+                <div class="card-text">
+                    <strong>Senza autorizzazione scritta:</strong>
+                    <br><br>
+                    • Tentativi di login<br><br>
+                    • Scansioni intrusive (nmap -sS su terzi)<br><br>
+                    • Accesso a server/file non pubblici<br><br>
+                    • Exploit di vulnerabilità<br><br>
+                    • Intercettazione traffico<br><br>
+                    • Social engineering attivo<br><br>
+                    • Qualsiasi accesso non autorizzato<br><br>
+                    <strong class="text-red">Art. 615-ter c.p. → fino a 3 anni</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">⚠️ Regola d'Oro</div>
+            <div class="card-text">
+                <strong>Nel dubbio, NON farlo.</strong>
+                <br><br>
+                Se hai bisogno di fare test attivi (vulnerability scan, pentest), 
+                ottieni SEMPRE un'<strong>autorizzazione scritta</strong> dal proprietario del sistema.
+                <br><br>
+                L'OSINT che abbiamo visto oggi è 100% legale perché usa solo informazioni pubbliche.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 24;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

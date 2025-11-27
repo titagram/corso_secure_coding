@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 2: Whois Domini Attaccante</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔬 Lab Parte 2: Whois dei Domini Fraudolenti</h1>
+        <div class="subtitle">Analizzare i domini registrati dall'attaccante</div>
+
+        <div class="card border-blue" style="margin-bottom: 25px;">
+            <div class="card-title">🎯 Obiettivo</div>
+            <div class="card-text">
+                Estrarre informazioni sui domini fraudolenti per: confermare che sono stati creati 
+                per l'attacco, identificare pattern, trovare eventuali correlazioni con altri domini.
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📋 Comandi Whois</div>
+                <div class="card-text">
+                    <div class="code-box"># Dominio 1
+whois rnonaco.cam
+
+# Dominio 2
+whois nvovokolor.com
+
+# Dominio 3
+whois sbinternationaltrading.cam</div>
+                    <br>
+                    <strong>Strumenti online:</strong><br>
+                    <span class="tech-term">https://who.is</span><br>
+                    <span class="tech-term">https://whois.domaintools.com</span>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🔍 Cosa Cercare</div>
+                <div class="card-text">
+                    <strong>Data di registrazione:</strong><br>
+                    Se recente (< 30 giorni) → 🚨 Sospetto!
+                    <br><br>
+                    <strong>Registrar:</strong><br>
+                    Namecheap, Porkbun, registrar esotici
+                    <br><br>
+                    <strong>Privacy Shield:</strong><br>
+                    "WhoisGuard", "Privacy Protect" → nasconde identità
+                    <br><br>
+                    <strong>Name Server:</strong><br>
+                    Spesso Cloudflare (nasconde IP reale)
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-top: 25px;">
+            <div class="card-title">📊 Risultati Caso Reale</div>
+            <div class="card-text">
+                <strong class="text-red">rnonaco.cam</strong> → Registrato: <strong>15/11/2025</strong> (5 giorni prima dell'attacco!)<br><br>
+                <strong class="text-yellow">nvovokolor.com</strong> → Registrato: <strong>08/02/2025</strong> (prima dell'attacco di Febbraio!)<br><br>
+                <strong class="text-purple">sbinternationaltrading.cam</strong> → Registrato: <strong>20/11/2025</strong> (stesso giorno dell'attacco!)
+                <br><br>
+                <strong>Pattern confermato:</strong> Domini usa e getta creati appositamente per la campagna.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 10;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

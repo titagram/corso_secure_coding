@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 2: IP e Geolocalizzazione</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🌍 Lab Parte 2: IP e Geolocalizzazione</h1>
+        <div class="subtitle">Tracciare l'infrastruttura dell'attaccante</div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">🖥️ Risoluzione IP</div>
+                <div class="card-text">
+                    <div class="code-box"># Risolvi il dominio
+nslookup rnonaco.cam
+dig rnonaco.cam A
+
+# Ottieni info sull'IP
+whois &lt;IP_OTTENUTO&gt;
+
+# Geolocalizza
+curl ipinfo.io/&lt;IP&gt;</div>
+                    <br>
+                    <strong>Strumenti:</strong><br>
+                    <span class="tech-term">https://ipinfo.io</span><br>
+                    <span class="tech-term">https://shodan.io</span>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔄 Passive DNS</div>
+                <div class="card-text">
+                    Trova altri domini sullo stesso IP:
+                    <br><br>
+                    <strong>SecurityTrails:</strong>
+                    <div class="code-box">https://securitytrails.com/domain/rnonaco.cam</div>
+                    <br>
+                    <strong>DNSDumpster:</strong>
+                    <div class="code-box">https://dnsdumpster.com</div>
+                    <br>
+                    <strong>Robtex:</strong>
+                    <div class="code-box">https://www.robtex.com</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔗 Correlazioni da Cercare</div>
+            <div class="card-text">
+                <strong class="text-blue">1. Altri domini fraudolenti</strong> sullo stesso IP → campagna più ampia<br><br>
+                <strong class="text-blue">2. Hosting provider</strong> → Bulletproof hosting? Paese ad alto rischio?<br><br>
+                <strong class="text-blue">3. Storico DNS</strong> → Il dominio ha cambiato IP? (possibile infrastruttura condivisa)<br><br>
+                <strong class="text-blue">4. Certificati SSL</strong> → Usa <span class="tech-term">crt.sh</span> per vedere altri domini sullo stesso cert
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🔍 URLScan.io</div>
+            <div class="card-text">
+                Cerca scansioni esistenti del dominio:
+                <div class="code-box">curl "https://urlscan.io/api/v1/search/?q=domain:rnonaco.cam"</div>
+                Se altri hanno già scansionato → conferma campagna nota.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 11;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

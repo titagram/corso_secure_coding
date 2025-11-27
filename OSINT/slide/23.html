@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Strumenti OSINT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🧰 Strumenti OSINT Riepilogo</h1>
+        <div class="subtitle">Tutti i tool usati nel laboratorio</div>
+
+        <div class="grid-3-col">
+            <div class="card border-blue">
+                <div class="card-title">📧 Email & DNS</div>
+                <div class="card-text">
+                    <strong>MXToolbox:</strong><br>
+                    <span class="tech-term">mxtoolbox.com</span>
+                    <br><br>
+                    <strong>Dmarcian:</strong><br>
+                    <span class="tech-term">dmarcian.com</span>
+                    <br><br>
+                    <strong>Kitterman SPF:</strong><br>
+                    <span class="tech-term">kitterman.com/spf</span>
+                    <br><br>
+                    <strong>Mail-Tester:</strong><br>
+                    <span class="tech-term">mail-tester.com</span>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🌐 Domini & IP</div>
+                <div class="card-text">
+                    <strong>Who.is:</strong><br>
+                    <span class="tech-term">who.is</span>
+                    <br><br>
+                    <strong>SecurityTrails:</strong><br>
+                    <span class="tech-term">securitytrails.com</span>
+                    <br><br>
+                    <strong>DNSDumpster:</strong><br>
+                    <span class="tech-term">dnsdumpster.com</span>
+                    <br><br>
+                    <strong>IPInfo:</strong><br>
+                    <span class="tech-term">ipinfo.io</span>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">🛡️ Threat Intel</div>
+                <div class="card-text">
+                    <strong>VirusTotal:</strong><br>
+                    <span class="tech-term">virustotal.com</span>
+                    <br><br>
+                    <strong>AbuseIPDB:</strong><br>
+                    <span class="tech-term">abuseipdb.com</span>
+                    <br><br>
+                    <strong>URLScan:</strong><br>
+                    <span class="tech-term">urlscan.io</span>
+                    <br><br>
+                    <strong>PhishTank:</strong><br>
+                    <span class="tech-term">phishtank.org</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 20px;">
+            <div class="card border-green">
+                <div class="card-title">🔑 Credenziali Leak</div>
+                <div class="card-text">
+                    <strong>Have I Been Pwned:</strong><br>
+                    <span class="tech-term">haveibeenpwned.com</span>
+                    <br><br>
+                    <strong>DeHashed:</strong><br>
+                    <span class="tech-term">dehashed.com</span> (a pagamento)
+                    <br><br>
+                    <strong>Hunter.io:</strong><br>
+                    <span class="tech-term">hunter.io</span>
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">💻 CLI Tools</div>
+                <div class="card-text">
+                    <div class="code-box">whois, dig, nslookup
+nmap, theHarvester
+curl, wget</div>
+                    <br>
+                    <strong>Installazione (Kali/Ubuntu):</strong>
+                    <div class="code-box">apt install whois dnsutils nmap</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 23;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

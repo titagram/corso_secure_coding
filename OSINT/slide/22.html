@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Checklist Finale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">✅ Checklist Finale di Valutazione</h1>
+        <div class="subtitle">Tutto quello che devi verificare per ogni caso sospetto</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">🔍 Analisi Email</div>
+                <div class="card-text">
+                    <strong>☐</strong> Controllo dominio mittente<br><br>
+                    <strong>☐</strong> Espansione header completi<br><br>
+                    <strong>☐</strong> Verifica SPF (pass/fail)<br><br>
+                    <strong>☐</strong> Verifica DKIM (presente/assente)<br><br>
+                    <strong>☐</strong> Verifica DMARC (policy)<br><br>
+                    <strong>☐</strong> Analisi catena Received<br><br>
+                    <strong>☐</strong> Estrazione IP origine
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🌐 Analisi Domini</div>
+                <div class="card-text">
+                    <strong>☐</strong> Whois dominio sospetto<br><br>
+                    <strong>☐</strong> Data registrazione dominio<br><br>
+                    <strong>☐</strong> Confronto con dominio legittimo<br><br>
+                    <strong>☐</strong> Risoluzione IP<br><br>
+                    <strong>☐</strong> Passive DNS / correlazioni<br><br>
+                    <strong>☐</strong> VirusTotal / threat intel<br><br>
+                    <strong>☐</strong> Segnalazione a PhishTank
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-col" style="margin-top: 20px;">
+            <div class="card border-yellow">
+                <div class="card-title">🔐 Verifica Account</div>
+                <div class="card-text">
+                    <strong>☐</strong> Accessi recenti anomali<br><br>
+                    <strong>☐</strong> Regole di inoltro<br><br>
+                    <strong>☐</strong> App OAuth collegate<br><br>
+                    <strong>☐</strong> MFA attiva<br><br>
+                    <strong>☐</strong> Password in leak noti
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🛡️ Remediation</div>
+                <div class="card-text">
+                    <strong>☐</strong> Password cambiate<br><br>
+                    <strong>☐</strong> MFA abilitata<br><br>
+                    <strong>☐</strong> Sessioni revocate<br><br>
+                    <strong>☐</strong> DMARC configurato<br><br>
+                    <strong>☐</strong> Utenti formati
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 22;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

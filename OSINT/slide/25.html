@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Conclusioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎯 Conclusioni</h1>
+        <div class="subtitle">Cosa abbiamo imparato oggi</div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">📚 Concetti Chiave</div>
+                <div class="card-text">
+                    <strong>1.</strong> BEC ≠ Spoofing semplice<br>
+                    È un attacco strutturato con typosquatting + thread hijacking
+                    <br><br>
+                    <strong>2.</strong> L'attaccante vede le email<br>
+                    Se conosce i dettagli, qualcuno è compromesso
+                    <br><br>
+                    <strong>3.</strong> SPF/DKIM/DMARC non bastano<br>
+                    Proteggono il TUO dominio, non da domini simili
+                    <br><br>
+                    <strong>4.</strong> La difesa è multilivello<br>
+                    Tecnica + Policy + Formazione
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🛠️ Skill Acquisite</div>
+                <div class="card-text">
+                    <strong>✓</strong> Analizzare header email<br><br>
+                    <strong>✓</strong> Verificare SPF/DKIM/DMARC<br><br>
+                    <strong>✓</strong> Investigare domini sospetti (Whois, DNS)<br><br>
+                    <strong>✓</strong> Usare threat intelligence<br><br>
+                    <strong>✓</strong> Verificare compromissione account<br><br>
+                    <strong>✓</strong> Comunicare con i clienti<br><br>
+                    <strong>✓</strong> Implementare contromisure
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">💡 Il Messaggio Finale</div>
+            <div class="card-text">
+                <strong>La tecnologia da sola non basta.</strong>
+                <br><br>
+                Il 95% degli attacchi BEC si ferma con una semplice <strong>telefonata di verifica</strong>.
+                <br><br>
+                Insegnate ai vostri clienti: <em>"Mai cambiare IBAN via email senza chiamare!"</em>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 20px;">
+            <div class="card-title">❓ Domande?</div>
+            <div class="card-text">
+                Grazie per l'attenzione! 🎉
+                <br><br>
+                Risorse: tutte le slide, strumenti e checklist sono disponibili per il download.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 25;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 4: Checklist Compromissione</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">✅ Lab Parte 4: Checklist Completa</h1>
+        <div class="subtitle">Tutto quello che devi verificare sulla casella sospetta</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🔐 Controlli Account</div>
+                <div class="card-text">
+                    <strong>☐ Password:</strong><br>
+                    Quando è stata cambiata l'ultima volta?
+                    <br><br>
+                    <strong>☐ MFA:</strong><br>
+                    È abilitata l'autenticazione a due fattori?
+                    <br><br>
+                    <strong>☐ Leak check:</strong>
+                    <div class="code-box">https://haveibeenpwned.com
+Cerca l'email del cliente</div>
+                    <br>
+                    <strong>☐ Sessioni attive:</strong><br>
+                    Ci sono sessioni da Paesi anomali?
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">📧 Controlli Email</div>
+                <div class="card-text">
+                    <strong>☐ Regole di inoltro:</strong><br>
+                    Esiste una regola che inoltra tutto a un indirizzo esterno?
+                    <br><br>
+                    <strong>☐ Regole di eliminazione:</strong><br>
+                    Esiste una regola che cancella email in arrivo?
+                    <br><br>
+                    <strong>☐ Email inviate:</strong><br>
+                    Ci sono email inviate che l'utente non riconosce?
+                    <br><br>
+                    <strong>☐ Elementi eliminati:</strong><br>
+                    Controlla il cestino per email sospette
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">🖥️ Controlli Dispositivo</div>
+            <div class="card-text">
+                <strong>☐ Malware scan:</strong> Esegui scansione completa con antivirus aggiornato<br><br>
+                <strong>☐ Browser extensions:</strong> Controlla estensioni sconosciute<br><br>
+                <strong>☐ Password manager:</strong> Il browser ha salvato password deboli?<br><br>
+                <strong>☐ Software non autorizzato:</strong> Teamviewer, AnyDesk, remote access tools?
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🛠️ Azioni Immediate</div>
+            <div class="card-text">
+                <strong>1.</strong> Cambia password IMMEDIATAMENTE<br>
+                <strong>2.</strong> Abilita MFA<br>
+                <strong>3.</strong> Revoca tutte le sessioni attive<br>
+                <strong>4.</strong> Rimuovi app OAuth sconosciute<br>
+                <strong>5.</strong> Elimina regole di inoltro sospette
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 17;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

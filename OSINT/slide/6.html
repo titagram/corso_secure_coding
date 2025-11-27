@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Perché i Filtri Falliscono</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">❓ Perché i Filtri Falliscono</h1>
+        <div class="subtitle">Dati aggiornati 2025 sulla sicurezza email in Italia</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📊 Statistiche Allarmanti</div>
+                <div class="card-text">
+                    <strong class="text-red">Solo 38%</strong> delle aziende italiane ha DMARC con policy 
+                    <span class="tech-term">p=quarantine</span> o <span class="tech-term">p=reject</span>
+                    <br><br>
+                    <strong class="text-red">47%</strong> ha SPF configurato in <span class="tech-term">soft-fail (~all)</span> 
+                    invece di <span class="tech-term">hard-fail (-all)</span>
+                    <br><br>
+                    <strong class="text-red">62%</strong> non ha DKIM configurato correttamente
+                    <br><br>
+                    <em>Fonte: AgID 2025, PowerDMARC Italia</em>
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">👁️ Il Problema Visivo</div>
+                <div class="card-text">
+                    I client di posta (Outlook, Gmail) mostrano il <span class="tech-term">Display Name</span> 
+                    e nascondono l'indirizzo reale:
+                    <br><br>
+                    <div class="code-box">Visualizzato: "Mario Rossi" &lt;...&gt;
+                    
+Nascosto: mario.rossi@rnalicious.cam</div>
+                    <br>
+                    L'utente deve cliccare per vedere l'indirizzo completo!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">🔧 Perché Tecnicamente Passa</div>
+            <div class="card-text">
+                <strong class="text-blue">SPF:</strong> Il dominio <span class="tech-term">rnonaco.cam</span> 
+                ha il <em>suo</em> SPF valido → passa il controllo!
+                <br><br>
+                <strong class="text-blue">DKIM:</strong> La mail può essere firmata con la chiave del dominio falso → passa!
+                <br><br>
+                <strong class="text-blue">DMARC:</strong> Il dominio vittima non ha DMARC o ha <span class="tech-term">p=none</span> 
+                → nessuna azione
+                <br><br>
+                <strong class="text-blue">Thread:</strong> Subject, In-Reply-To e References corretti → appare nello stesso thread
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 20px;">
+            <div class="card-title">💡 La Lezione</div>
+            <div class="card-text">
+                SPF/DKIM/DMARC proteggono <strong>il tuo dominio dall'essere spoofato</strong>, 
+                non ti proteggono da email che arrivano da <strong>domini simili ma diversi</strong>.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 6;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Piano di Difesa: Livelli 3-4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Piano di Difesa in 5 Livelli</h1>
+        <div class="subtitle">Livello 3 e 4: Policy Aziendali e Strumenti Avanzati</div>
+
+        <div class="card border-yellow" style="margin-bottom: 25px;">
+            <div class="card-title">📋 Livello 3: Regole Aziendali (Il Più Importante!)</div>
+            <div class="card-text">
+                <strong class="text-red">Regola d'oro:</strong>
+                <div class="code-box">MAI cambiare coordinate bancarie via email
+senza verifica telefonica con voce conosciuta!</div>
+                <br>
+                <strong>Policy da implementare:</strong><br><br>
+                <strong>1.</strong> Ogni richiesta di pagamento anticipato → <strong>telefonata obbligatoria</strong><br><br>
+                <strong>2.</strong> Ogni modifica IBAN → <strong>doppia approvazione + callback</strong><br><br>
+                <strong>3.</strong> Pagamenti > 5.000€ → <strong>verifica con firma digitale o PEC</strong><br><br>
+                <strong>4.</strong> Banche in paesi ad alto rischio → <strong>blocco automatico</strong><br>
+                <span class="tech-term">(Romania, Lituania, Bulgaria, Cipro, Lettonia = top 5 BEC 2025)</span>
+            </div>
+        </div>
+
+        <div class="card border-purple">
+            <div class="card-title">🔧 Livello 4: Strumenti Avanzati (Opzionali)</div>
+            <div class="card-text">
+                Per aziende con budget dedicato alla sicurezza email:
+                <br><br>
+                <strong>Anti-BEC Specializzati:</strong>
+                <div class="code-box">Abnormal Security ........... 8-15 €/utente/mese
+Proofpoint TAP .............. 10-20 €/utente/mese
+IRONSCALES .................. 6-10 €/utente/mese
+Barracuda Sentinel .......... 4-8 €/utente/mese</div>
+                <br>
+                <strong>Funzionalità:</strong><br>
+                • Rilevamento thread hijacking in tempo reale<br>
+                • Blocco homograph/typosquatting automatico<br>
+                • Analisi comportamentale delle email<br>
+                • Alert su richieste finanziarie sospette
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 19;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

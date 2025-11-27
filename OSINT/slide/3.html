@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Il Caso Reale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📅 Il Caso Reale – 20 Novembre 2025</h1>
+        <div class="subtitle">Cronologia dettagliata dell'attacco BEC</div>
+
+        <div class="card border-green" style="margin-bottom: 20px;">
+            <div class="card-title">🕐 11:11 – Email Legittima</div>
+            <div class="card-text">
+                Arriva email dal cliente reale:
+                <div class="code-box">Da: mg.groupe@monaco.mc  ← DOMINIO CORRETTO
+A: r.chiari@nuovokolor.com
+Oggetto: Ordine #12345</div>
+                La vittima <strong>non risponde</strong> subito.
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-bottom: 20px;">
+            <div class="card-title">🕐 13:27 – Email Fraudolenta (Sollecito)</div>
+            <div class="card-text">
+                L'attaccante invia un "sollecito" dalla mail falsa:
+                <div class="code-box">Da: mg.groupe@rnonaco.cam  ← DOMINIO FALSO! ("rn" invece di "m")
+A: r.chiari@nuovokolor.com
+Oggetto: Re: Ordine #12345 - Sollecito</div>
+                La vittima <strong>risponde</strong> pensando sia il sollecito legittimo.
+            </div>
+        </div>
+
+        <div class="card border-red">
+            <div class="card-title">🕐 13:44 – Richiesta di Pagamento Fraudolenta</div>
+            <div class="card-text">
+                L'attaccante invia al vero cliente una mail spoofata:
+                <div class="code-box">Da: r.chiari@nvovokolor.com  ← DOMINIO FALSO! ("v" invece di "u")
+A: mg.groupe@monaco.mc
+Oggetto: Re: Ordine #12345
+
+"Vi preghiamo di effettuare il pagamento anticipato del 40% 
+ sul seguente IBAN: [BANCA ESTERA]"</div>
+                <strong class="text-red">Il vero cliente stava per pagare!</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 3;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

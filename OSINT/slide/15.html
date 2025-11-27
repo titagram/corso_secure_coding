@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 3: Esercizio Header</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">📝 Lab Parte 3: Esercizio Pratico</h1>
+        <div class="subtitle">Confronta email legittima vs email spoofata</div>
+
+        <div class="grid-2-col">
+            <div class="card border-green">
+                <div class="card-title">✅ Email Legittima</div>
+                <div class="card-text">
+                    <div class="code-box">From: mg.groupe@monaco.mc
+Return-Path: mg.groupe@monaco.mc
+Message-ID: &lt;xyz@smtp.monaco.mc&gt;
+
+Received: from smtp.monaco.mc 
+  (smtp.monaco.mc [real-ip])
+  by mx.nuovokolor.com
+
+Authentication-Results:
+  spf=pass smtp.mailfrom=monaco.mc
+  dkim=pass header.d=monaco.mc
+  dmarc=pass header.from=monaco.mc</div>
+                </div>
+            </div>
+
+            <div class="card border-red">
+                <div class="card-title">❌ Email Fraudolenta</div>
+                <div class="card-text">
+                    <div class="code-box">From: mg.groupe@rnonaco.cam  ← FALSO!
+Return-Path: noreply@rnonaco.cam
+Message-ID: &lt;abc@vps123.hosting.com&gt;
+
+Received: from vps123.hosting.com 
+  (unknown [185.x.x.x])
+  by mx.nuovokolor.com
+
+Authentication-Results:
+  spf=pass smtp.mailfrom=rnonaco.cam
+  dkim=none
+  dmarc=none</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔍 Differenze Chiave da Identificare</div>
+            <div class="card-text">
+                <strong class="text-blue">1. Dominio:</strong> 
+                <span class="tech-term">monaco.mc</span> vs <span class="tech-term">rnonaco.cam</span> 
+                (m → rn, .mc → .cam)
+                <br><br>
+                <strong class="text-blue">2. Server origine:</strong> 
+                <span class="tech-term">smtp.monaco.mc</span> vs <span class="tech-term">vps123.hosting.com</span> 
+                (VPS generico!)
+                <br><br>
+                <strong class="text-blue">3. IP:</strong> 
+                IP aziendale Monaco vs IP hosting economico (185.x.x.x spesso = VPS russo/ucraino)
+                <br><br>
+                <strong class="text-blue">4. DKIM/DMARC:</strong> 
+                La legittima ha tutto configurato, la fraudolenta no
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 20px;">
+            <div class="card-title">📋 Compito</div>
+            <div class="card-text">
+                L'istruttore fornirà header reali. Identifica: server origine, IP, 
+                risultati SPF/DKIM/DMARC, e determina se l'email è legittima o spoofata.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 15;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

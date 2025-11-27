@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 3: Interpretare gli Header</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 Lab Parte 3: Interpretare gli Header</h1>
+        <div class="subtitle">I campi chiave da analizzare</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">📋 Campi Critici</div>
+                <div class="card-text">
+                    <strong class="text-blue">From:</strong> Può essere falsificato!
+                    <div class="code-box">From: "Mario Rossi" &lt;mario@rnonaco.cam&gt;</div>
+                    <br>
+                    <strong class="text-blue">Return-Path:</strong> Vero mittente SMTP
+                    <div class="code-box">Return-Path: &lt;bounce@evil-server.com&gt;</div>
+                    <br>
+                    <strong class="text-blue">Message-ID:</strong> Rivela server origine
+                    <div class="code-box">Message-ID: &lt;abc123@mail.rnonaco.cam&gt;</div>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔗 Catena Received</div>
+                <div class="card-text">
+                    Si legge <strong>dal basso verso l'alto</strong>:
+                    <div class="code-box">Received: from mail.destinatario.com
+  by mx.gmail.com ...
+  
+Received: from smtp.rnonaco.cam (185.x.x.x)
+  by mail.destinatario.com ...
+  
+Received: from [unknown] (192.168.1.5)
+  by smtp.rnonaco.cam ...</div>
+                    <br>
+                    L'ultimo (in basso) è l'origine!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">✅ Authentication-Results</div>
+            <div class="card-text">
+                Il campo più importante per la verifica:
+                <div class="code-box">Authentication-Results: mx.google.com;
+  spf=pass (sender IP is 185.x.x.x) smtp.mailfrom=rnonaco.cam;
+  dkim=pass header.d=rnonaco.cam;
+  dmarc=pass (p=NONE) header.from=rnonaco.cam</div>
+                <br>
+                <strong class="text-red">Attenzione:</strong> Tutto può essere "pass" perché il dominio 
+                <span class="tech-term">rnonaco.cam</span> ha i SUOI record configurati! 
+                Il problema è che <strong>non è il dominio legittimo</strong>.
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">🎯 Cosa Cercare</div>
+            <div class="card-text">
+                <strong>1.</strong> Il dominio nel From corrisponde a quello atteso?<br>
+                <strong>2.</strong> Gli IP nei Received sono coerenti con il mittente dichiarato?<br>
+                <strong>3.</strong> Il Message-ID contiene domini sospetti?
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 14;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

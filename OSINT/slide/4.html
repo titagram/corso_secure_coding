@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - I Domini Fraudolenti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🎭 I Domini Fraudolenti – Typosquatting</h1>
+        <div class="subtitle">Come l'attaccante inganna l'occhio umano</div>
+
+        <div class="grid-3-col">
+            <div class="card border-red">
+                <div class="card-title">monaco.mc → rnonaco.cam</div>
+                <div class="card-text">
+                    <strong>Trucco:</strong> "m" → "rn"
+                    <br><br>
+                    In molti font, <span class="tech-term">rn</span> appare identico a <span class="tech-term">m</span>
+                    <br><br>
+                    <strong>TLD:</strong> .cam (Camerun)<br>
+                    Costa 1-2€, nessun documento richiesto
+                    <br><br>
+                    <strong class="text-red">Registrato: 15/11/2025</strong><br>
+                    5 giorni prima dell'attacco!
+                </div>
+            </div>
+
+            <div class="card border-yellow">
+                <div class="card-title">nuovokolor.com → nvovokolor.com</div>
+                <div class="card-text">
+                    <strong>Trucco:</strong> "uo" → "vo"
+                    <br><br>
+                    La "u" diventa "v" – difficile da notare leggendo velocemente
+                    <br><br>
+                    <strong>TLD:</strong> .com (stesso del legittimo)
+                    <br><br>
+                    <strong class="text-yellow">Registrato: 08/02/2025</strong><br>
+                    Usato nel precedente attacco di Febbraio!
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">sbinternationaltrading.cam</div>
+                <div class="card-text">
+                    <strong>Nota:</strong> Questo dominio è <em>identico</em> a quello menzionato
+                    <br><br>
+                    Potrebbe indicare che la casella di questo cliente è già <strong>compromessa</strong>
+                    <br><br>
+                    <strong class="text-purple">Registrato: 20/11/2025</strong><br>
+                    Lo stesso giorno dell'attacco!
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-blue" style="margin-top: 25px;">
+            <div class="card-title">🔎 Pattern dell'Attaccante</div>
+            <div class="card-text">
+                <strong>Domini usa e getta:</strong> Registrati pochi giorni prima, usati per 1-2 attacchi, poi abbandonati<br><br>
+                <strong>TLD preferiti:</strong> <span class="tech-term">.cam</span>, <span class="tech-term">.ml</span>, <span class="tech-term">.ga</span>, <span class="tech-term">.cf</span>, <span class="tech-term">.tk</span> (gratuiti o quasi)<br><br>
+                <strong>Registrar:</strong> Spesso Namecheap, Porkbun, o registrar russi/cinesi con privacy shield
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 4;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 4: Verifica Compromissione</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔓 Lab Parte 4: Verifica Compromissione Casella</h1>
+        <div class="subtitle">Se l'attaccante conosce i contenuti, qualcuno ha accesso</div>
+
+        <div class="card border-red" style="margin-bottom: 25px;">
+            <div class="card-title">🚨 Il Fatto</div>
+            <div class="card-text">
+                L'attaccante conosceva i dettagli esatti della conversazione (ordine, importi, nomi).
+                <strong>Questo è impossibile senza accesso alle email.</strong>
+                <br><br>
+                Possibili scenari:
+                <br>
+                <strong>1.</strong> Casella del cliente compromessa (nuovokolor.com)<br>
+                <strong>2.</strong> Casella del fornitore compromessa (monaco.mc)<br>
+                <strong>3.</strong> Regola di inoltro malevola attiva<br>
+                <strong>4.</strong> App OAuth con accesso alla posta
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-blue">
+                <div class="card-title">🔍 Microsoft 365 – Verifiche</div>
+                <div class="card-text">
+                    <strong>1. Accessi recenti:</strong>
+                    <div class="code-box">Azure AD → Sign-in logs
+Cerca: login da Paesi anomali
+       login con IP sospetti
+       login falliti ripetuti</div>
+                    <br>
+                    <strong>2. Regole di inoltro:</strong>
+                    <div class="code-box">Exchange Admin → Mail flow → Rules
+Outlook → File → Rules → Manage Rules
+Cerca: Forward to external address</div>
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔍 Google Workspace – Verifiche</div>
+                <div class="card-text">
+                    <strong>1. Attività dispositivi:</strong>
+                    <div class="code-box">myaccount.google.com → Sicurezza
+→ I tuoi dispositivi
+→ Attività di sicurezza recenti</div>
+                    <br>
+                    <strong>2. App con accesso:</strong>
+                    <div class="code-box">myaccount.google.com → Sicurezza
+→ App di terze parti con accesso
+Cerca: App sconosciute con
+       "Leggi la posta"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">⚠️ Indizio Cruciale del Caso</div>
+            <div class="card-text">
+                Lo <strong>stesso tipo di attacco</strong> è avvenuto a Febbraio su un'altra casella dello stesso cliente.
+                → Pattern identico = <strong>compromissione sistemica</strong> o password riutilizzate su più account.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 16;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

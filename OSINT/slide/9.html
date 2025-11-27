@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 1: Recon Aggiuntivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 Lab Parte 1: Recon Aggiuntivo</h1>
+        <div class="subtitle">Raccolta informazioni su email e infrastruttura esposta</div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📧 Raccolta Email Pubbliche</div>
+                <div class="card-text">
+                    <strong>Hunter.io:</strong>
+                    <div class="code-box">https://hunter.io/domain-search
+Inserisci: nuovokolor.com</div>
+                    <br>
+                    <strong>EmailRep.io:</strong>
+                    <div class="code-box">curl "https://emailrep.io/r.chiari@nuovokolor.com"</div>
+                    <br>
+                    <strong>IntelX.io:</strong><br>
+                    Cerca leak e esposizioni storiche
+                    <br><br>
+                    <strong>TheHarvester:</strong>
+                    <div class="code-box">theHarvester -d nuovokolor.com -b all</div>
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🌐 Pannelli Webmail Esposti</div>
+                <div class="card-text">
+                    <strong>Scan porte:</strong>
+                    <div class="code-box">nmap -p 80,443,993,995,587 nuovokolor.com --script http-title</div>
+                    <br>
+                    <strong>Cosa cercare:</strong><br>
+                    • Outlook Web Access (OWA)<br>
+                    • Webmail Roundcube<br>
+                    • cPanel/Plesk mail<br>
+                    • Login senza MFA visibile
+                    <br><br>
+                    <strong class="text-red">Versioni vulnerabili?</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔑 Verifica Password Leak</div>
+            <div class="card-text">
+                <strong>Have I Been Pwned:</strong>
+                <div class="code-box">https://haveibeenpwned.com/
+Cerca: r.chiari@nuovokolor.com</div>
+                <br>
+                <strong>DeHashed (a pagamento):</strong> Trova password in chiaro dai leak
+                <br><br>
+                <strong class="text-red">Se l'email appare in un leak → probabile compromissione se stessa password riutilizzata!</strong>
+            </div>
+        </div>
+
+        <div class="card border-green" style="margin-top: 20px;">
+            <div class="card-title">📝 Documenta i Risultati</div>
+            <div class="card-text">
+                Per ogni dominio analizzato, annota: SPF (pass/fail), DKIM (sì/no), DMARC (policy), 
+                MX server, email trovate pubblicamente, leak noti.
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 9;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

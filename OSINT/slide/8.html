@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 1: Verifica SPF/DKIM/DMARC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔐 Lab Parte 1: SPF / DKIM / DMARC</h1>
+        <div class="subtitle">Interpretare i risultati dell'analisi DNS</div>
+
+        <div class="grid-3-col">
+            <div class="card border-blue">
+                <div class="card-title">📋 SPF – Esempio</div>
+                <div class="card-text">
+                    <strong>Buono:</strong>
+                    <div class="code-box">v=spf1 include:spf.protection.outlook.com -all</div>
+                    <br>
+                    <strong class="text-red">Problematico:</strong>
+                    <div class="code-box">v=spf1 include:... ~all</div>
+                    <br>
+                    <span class="tech-term">~all</span> = soft fail<br>
+                    <span class="tech-term">-all</span> = hard fail ✓
+                </div>
+            </div>
+
+            <div class="card border-purple">
+                <div class="card-title">🔑 DKIM – Verifica</div>
+                <div class="card-text">
+                    Cerca il selettore:
+                    <div class="code-box">dig txt selector1._domainkey.dominio.com</div>
+                    <br>
+                    <strong>Output atteso:</strong>
+                    <div class="code-box">v=DKIM1; k=rsa; p=MIIBIjANBg...</div>
+                    <br>
+                    Se vuoto → DKIM non configurato
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🛡️ DMARC – Policy</div>
+                <div class="card-text">
+                    <div class="code-box">dig txt _dmarc.dominio.com</div>
+                    <br>
+                    <strong>Policy consigliate:</strong><br>
+                    <span class="tech-term">p=none</span> → Solo monitor ⚠️<br>
+                    <span class="tech-term">p=quarantine</span> → Spam ✓<br>
+                    <span class="tech-term">p=reject</span> → Blocco ✓✓
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 25px;">
+            <div class="card-title">🔍 Esercizio: Verifica Questi Domini</div>
+            <div class="card-text">
+                Usa gli strumenti per verificare la configurazione di:
+                <br><br>
+                <strong class="text-blue">1.</strong> <span class="tech-term">nuovokolor.com</span> (dominio vittima)<br>
+                <strong class="text-blue">2.</strong> <span class="tech-term">monaco.mc</span> (dominio cliente)<br>
+                <strong class="text-blue">3.</strong> Il dominio della tua azienda
+                <br><br>
+                <strong>Domande:</strong> Hanno SPF? DKIM? DMARC con policy restrittiva?
+            </div>
+        </div>
+
+        <div class="card border-red" style="margin-top: 20px;">
+            <div class="card-title">⚠️ Nota Importante</div>
+            <div class="card-text">
+                Anche con SPF/DKIM/DMARC perfetti, <strong>non sei protetto da domini simili</strong> 
+                come <span class="tech-term">rnonaco.cam</span>. Questi hanno i LORO record validi!
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 8;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

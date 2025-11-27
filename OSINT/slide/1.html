@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Business Email Compromise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔍 OSINT Lab – Business Email Compromise</h1>
+        <div class="subtitle">Caso Reale: Analisi di un attacco BEC – Novembre 2025</div>
+
+        <div class="grid-2-col">
+            <div class="card border-red">
+                <div class="card-title">🚨 Il Problema</div>
+                <div class="card-text">
+                    Un cliente ha ricevuto richieste di pagamento fraudolente che sembravano 
+                    provenire da un fornitore legittimo. L'attaccante si è inserito in una 
+                    conversazione email reale, modificando le coordinate bancarie.
+                    <br><br>
+                    <strong class="text-red">Danno potenziale:</strong> Pagamento su conto estero controllato dai criminali.
+                </div>
+            </div>
+
+            <div class="card border-blue">
+                <div class="card-title">🎯 Cosa Impareremo</div>
+                <div class="card-text">
+                    <strong class="text-blue">1.</strong> Anatomia di un'email e sue vulnerabilità<br><br>
+                    <strong class="text-blue">2.</strong> Analisi OSINT di domini sospetti<br><br>
+                    <strong class="text-blue">3.</strong> Lettura e interpretazione degli header<br><br>
+                    <strong class="text-blue">4.</strong> Verifica SPF/DKIM/DMARC<br><br>
+                    <strong class="text-blue">5.</strong> Identificazione di compromissione
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">⚠️ Questo NON è Semplice Spoofing</div>
+            <div class="card-text">
+                L'attacco che analizzeremo combina <strong>tre tecniche avanzate</strong>:
+                <br><br>
+                <span class="tech-term">Typosquatting</span> → Registrazione di domini quasi identici<br>
+                <span class="tech-term">Thread Hijacking</span> → Inserimento in conversazioni reali<br>
+                <span class="tech-term">Homograph Attack</span> → Sostituzione di caratteri visivamente simili (m→rn, u→v)
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 1;</script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Piano di Difesa: Livello 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🛡️ Piano di Difesa in 5 Livelli</h1>
+        <div class="subtitle">Livello 5: Formazione e Simulazioni</div>
+
+        <div class="card border-blue" style="margin-bottom: 25px;">
+            <div class="card-title">🎓 Formazione del Personale</div>
+            <div class="card-text">
+                <strong>Cosa insegnare:</strong>
+                <br><br>
+                <strong>1.</strong> <strong>Guardare SEMPRE l'indirizzo email completo</strong><br>
+                Non fidarsi del Display Name ("Mario Rossi" può nascondere mario@evil.com)
+                <br><br>
+                <strong>2.</strong> <strong>Riconoscere typosquatting</strong><br>
+                rnonaco.cam ≠ monaco.mc (la "m" è diventata "rn"!)
+                <br><br>
+                <strong>3.</strong> <strong>Sospettare di urgenza e pressione</strong><br>
+                "Paga subito!", "È urgente!", "Il CEO ha detto..." = 🚩
+                <br><br>
+                <strong>4.</strong> <strong>Verificare telefonicamente ogni cambio IBAN</strong><br>
+                Chiamare un numero NOTO, non quello nell'email sospetta
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-yellow">
+                <div class="card-title">🎯 Simulazioni BEC</div>
+                <div class="card-text">
+                    <strong>Frequenza:</strong> Almeno 2 volte l'anno
+                    <br><br>
+                    <strong>Cosa simulare:</strong><br>
+                    • Richiesta cambio IBAN da fornitore<br>
+                    • Richiesta bonifico urgente dal "CEO"<br>
+                    • Email da dominio simile<br><br>
+                    <strong>Strumenti:</strong><br>
+                    <span class="tech-term">KnowBe4, Cofense, GoPhish</span>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">📊 Metriche da Tracciare</div>
+                <div class="card-text">
+                    <strong>Click rate:</strong><br>
+                    % di utenti che cliccano link sospetti
+                    <br><br>
+                    <strong>Report rate:</strong><br>
+                    % di utenti che segnalano email sospette
+                    <br><br>
+                    <strong>Obiettivo:</strong><br>
+                    Click < 5%, Report > 70%
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-purple" style="margin-top: 20px;">
+            <div class="card-title">💡 La Regola dei 3 Secondi</div>
+            <div class="card-text">
+                Prima di rispondere a QUALSIASI email con richieste finanziarie, 
+                fermati 3 secondi e chiediti: <strong>"È normale questa richiesta?"</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 20;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+

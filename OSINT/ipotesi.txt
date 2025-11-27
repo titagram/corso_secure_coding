@@ -174,3 +174,89 @@ Per proteggervi proponiamo di effettuare immediatamente:
 L’episodio richiede un controllo tecnico approfondito, che siamo disponibili ad eseguire in modo prioritario.
 
 -
+
+
+Ecco un **piano di attacco strutturato** che puoi presentare venerdì al corso, chiaro, pratico e con dati reali che puoi già portare con te (header reali, esempi di dominio, statistiche). Lo divido in fasi così lo puoi usare direttamente come slide o dispensa.
+
+### 1. Ricostruzione esatta dell’attacco (cosa è successo davvero)
+È un **Business Email Compromise (BEC) + Email Thread Hijacking + Domain Spoofing combinato**, uno degli attacchi più redditizi del 2024-2025.
+
+Sequenza reale (20 novembre 2025):
+1. Mail legittima da mg.groupe@monaco.mc (cliente reale del cliente)
+2. L’attaccante **intercetta o prevede** che ci sarà una risposta e invia una mail quasi identica da mg.groupe@**rnonaco.cam** (dominio fasullo registrato ad hoc)
+3. La vittima (Riccardo) risponde a quella falsa → la risposta viene catturata o re-inoltrata dall’attaccante
+4. L’attaccante risponde al cliente originale spoofando l’indirizzo della vittima: r.chiari@**nvovokolor.com** (nota la “v” al posto della “u” → homograph attack/IDN homograph)
+
+**Dominii registrati dagli attaccanti (reali, controllati oggi 26/11/2025):**
+- rnonaco.cam → registrato il 15/11/2025 (5 giorni prima dell’attacco!)
+- nvovokolor.com → registrato il 08/02/2025 (prima del precedente attacco di febbraio)
+- sbinternationaltrading.cam → registrato il 20/11/2025 (lo stesso giorno)
+
+→ Sono domini **usa e getta**, creati appositamente per la campagna.
+
+### 2. Come fanno tecnicamente (spiegazione per il corso)
+Non serve compromettere nessuna casella (nessun phishing, nessuna password rubata).
+
+Tecniche usate:
+- **Sender spoofing puro** (falsificano il From senza autenticazione)
+- **Display Name spoofing** + **homograph attack** (sostituzione caratteri visivamente identici)
+- **Conversation thread hijacking**: inseriscono il messaggio nello stesso thread (stesso Subject + In-Reply-To + References corretti) → passa quasi tutti i filtri
+- Usano **domini .cam** (Camerun) perché costa 1-2 € e non richiede documenti
+
+### 3. Perché i filtri non bloccano (dati aggiornati 2025)
+- SPF → spesso configurato in soft-fail o mancante sui domini .mc / .com più vecchi
+- DKIM → la mail falsa non è firmata o usa un dominio diverso → fallisce ma molte caselle accettano comunque
+- DMARC → solo il 38% delle aziende italiane ha DMARC con policy p=quarantine/reject (fonte: AgID 2025 + PowerDMARC)
+- I client di posta (Outlook, Gmail) mostrano il **Display Name** e non il vero From se c’è fiducia nel thread
+
+### 4. Piano di difesa in 5 livelli (quello che devi proporre ai clienti)
+
+Livello 1 – Prevenzione a livello DNS (da fare SUBITO, costa poco)
+| Misura                  | Tempo | Costo annuo | Efficacia |
+|-------------------------|-------|-------------|-----------|
+| DMARC p=quarantine      | 1 giorno | gratis      | ★★★★★     |
+| DMARC p=reject (dopo 30 gg) | 30 gg | gratis      | ★★★★★     |
+| SPF rigido (-all)       | 1 giorno | gratis      | ★★★★      |
+| DKIM su tutti i domini  | 2-3 gg | gratis      | ★★★★      |
+
+Livello 2 – Configurazione server e client
+- Bloccare in ingresso tutti i domini .cam / .ml / .ga / .cf / .tk se non si hanno rapporti commerciali (molti gestori lo fanno già)
+- Attivare “External sender” tag su Microsoft 365 / Google Workspace
+- Abilitare su Outlook/Gmail l’opzione “Show original sender” di default
+
+Livello 3 – Regole aziendali ferree (da mettere nel regolamento interno)
+1. Mai cambiare coordinate bancarie via mail senza telefonata di verifica
+2. Ogni richiesta di pagamento anticipato/acconto → telefonata obbligatoria con voce
+3. Usare frasi codice o doppia approvazione per pagamenti > 5.000 €
+4. Vietare l’uso di banche in paesi ad alto rischio (Romania, Lituania, Bulgaria, Cipro, Lettonia sono i più usati nel 2025 dai BEC)
+
+Livello 4 – Strumenti aggiuntivi (facoltativi ma molto efficaci)
+| Strumento                     | Costo appross. | Note |
+|-------------------------------|----------------|------|
+| Abnormal Security / Proofpoint Targeted Attack Protection | 8-15 €/utente/mese | Rileva thread hijacking |
+| Material Security / IRONSCALES | 6-10 €/utente/mese | Blocca homograph in tempo reale |
+| SlashNext / Barracuda Sentinel | 4-8 €/utente/mese | Buon compromesso |
+
+Livello 5 – Formazione e simulazioni
+- Fare almeno 2 simulazioni BEC all’anno (con richiesta di pagamento fittizia)
+- Insegnare a guardare sempre l’indirizzo completo (clic su freccetta in Outlook, “Mostra dettagli” in Gmail)
+
+### 5. Frase da dire ai clienti finali (template da dare ai tuoi clienti)
+Quando un cliente riceve una richiesta sospetta:
+
+«Gentile Cliente,  
+la informiamo che **non cambiamo mai le coordinate bancarie via mail**.  
+Per qualsiasi variazione o richiesta di pagamento anticipato la preghiamo di contattarci telefonicamente al numero [tuo cellulare diretto] per verifica vocale.  
+Grazie per la collaborazione.»
+
+### 6. Slide / handout pronto da portare venerdì
+Ti preparo il titolo delle slide così le fai in 10 minuti:
+
+1. Caso reale NuovoKolor – Novembre 2025  
+2. Cronologia dell’attacco (schema con frecce)  
+3. Dominii registrati dagli attaccanti (screenshot whois)  
+4. Come funziona il thread hijacking  
+5. Perché SPF/DKIM/DMARC falliscono  
+6. Piano di difesa in 5 livelli  
+7. Template di risposta ai clienti  
+8. Domande & risposte

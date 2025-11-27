@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Lab - Parte 1: Analisi DNS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-buttons">
+        <div class="nav-btn" id="nav-menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <div class="nav-btn" id="nav-prev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+        <div class="nav-btn" id="nav-next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🔬 Lab Parte 1: Analisi DNS del Dominio Vittima</h1>
+        <div class="subtitle">Verifichiamo la configurazione del dominio legittimo</div>
+
+        <div class="card border-blue" style="margin-bottom: 25px;">
+            <div class="card-title">🎯 Obiettivo</div>
+            <div class="card-text">
+                Verificare se il dominio della vittima (<span class="tech-term">nuovokolor.com</span>) 
+                ha configurazioni di sicurezza adeguate che avrebbero potuto prevenire o mitigare l'attacco.
+            </div>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="card border-purple">
+                <div class="card-title">📋 Comandi da Eseguire</div>
+                <div class="card-text">
+                    <strong>Risoluzione base:</strong>
+                    <div class="code-box">nslookup nuovokolor.com
+dig nuovokolor.com any
+dig nuovokolor.com MX</div>
+                    <br>
+                    <strong>Record TXT (SPF):</strong>
+                    <div class="code-box">dig txt nuovokolor.com</div>
+                    <br>
+                    <strong>Record DMARC:</strong>
+                    <div class="code-box">dig txt _dmarc.nuovokolor.com</div>
+                </div>
+            </div>
+
+            <div class="card border-green">
+                <div class="card-title">🌐 Strumenti Online</div>
+                <div class="card-text">
+                    <strong>MX Toolbox:</strong><br>
+                    <span class="tech-term">https://mxtoolbox.com/SuperTool.aspx</span>
+                    <br><br>
+                    <strong>DMARC Analyzer:</strong><br>
+                    <span class="tech-term">https://dmarcian.com/dmarc-inspector/</span>
+                    <br><br>
+                    <strong>SPF Validator:</strong><br>
+                    <span class="tech-term">https://www.kitterman.com/spf/validate.html</span>
+                    <br><br>
+                    <strong>Mail-Tester:</strong><br>
+                    <span class="tech-term">https://www.mail-tester.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-yellow" style="margin-top: 20px;">
+            <div class="card-title">📝 Cosa Cercare</div>
+            <div class="card-text">
+                <strong>SPF presente?</strong> Dovrebbe contenere <span class="tech-term">-all</span> (hard fail)<br>
+                <strong>DKIM attivo?</strong> Cerca record <span class="tech-term">selector._domainkey.dominio.com</span><br>
+                <strong>DMARC configurato?</strong> Policy <span class="tech-term">p=quarantine</span> o <span class="tech-term">p=reject</span><br>
+                <strong>MX server:</strong> Microsoft 365? Google? Server proprio?
+            </div>
+        </div>
+    </div>
+
+    <script>const slideNumero = 7;</script>
+    <script src="main.js"></script>
+</body>
+</html>
+
